@@ -1,0 +1,23 @@
+.theme-toggle {
+    background-color: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+.theme-toggle:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.theme-toggle .icon {
+    pointer-events: none;
+}
