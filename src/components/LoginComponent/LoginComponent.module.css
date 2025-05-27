@@ -1,4 +1,83 @@
-.wrap {
-    width: 100%;
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--el-color-primary-light-9), var(--el-color-primary-light-7));
+    padding: 20px;
 }
 
+.form {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--text-secondary);
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.button:hover {
+    background-color: var(--el-color-primary-light-3);
+    color: var(--el-color-primary-light-9);
+}
+
+.error {
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.registerLink {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.link {
+    color: var(--primary-color);
+    cursor: pointer;
+    text-decoration: underline;
+}

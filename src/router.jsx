@@ -2,7 +2,7 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout/MainLayout.jsx";
 import PublicLayout from "./layouts/PublicLayout/PublicLayout.jsx";
-import {LoginPage} from "./pages/index.js";
+import {LoginPage, RegisterPage} from "./pages/index.js";
 
 const router = createBrowserRouter([
     {
@@ -11,7 +11,8 @@ const router = createBrowserRouter([
 
             {
                 element: <PublicLayout/>, children: [
-                    {path: "/login", element: <LoginPage/>}
+                    {path: "/login", element: <LoginPage/>},
+                    {path: "/register", element: <RegisterPage/>}
                 ]
             },
         ]
