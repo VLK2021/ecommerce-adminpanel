@@ -2,7 +2,9 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout/MainLayout.jsx";
 import PublicLayout from "./layouts/PublicLayout/PublicLayout.jsx";
-import {LoginPage, RegisterPage} from "./pages/index.js";
+import {DashboardPage, LoginPage, RegisterPage} from "./pages/index.js";
+import PrivateLayout from "./layouts/PrivateLayout/PrivateLayout.jsx";
+import {PrivateRoute} from "./hok/index.js";
 
 const router = createBrowserRouter([
     {
@@ -15,6 +17,13 @@ const router = createBrowserRouter([
                     {path: "/register", element: <RegisterPage/>}
                 ]
             },
+            {
+                element: <PrivateRoute><PrivateLayout/></PrivateRoute>, children: [
+                    {path: '/dashboard', element: <DashboardPage/>, children: [
+
+                        ]}
+                ]
+            }
         ]
     }
 ]);

@@ -1,0 +1,56 @@
+.sidebar {
+    width: 100%;
+    background: var(--card-bg);
+    color: var(--text-color);
+    height: 100vh;
+    padding: 1.1rem;
+    box-sizing: border-box;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menuItem {
+    margin-bottom: 12px;
+}
+
+.menuHeader {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+.menuHeader:hover {
+    color: var(--primary-color);
+}
+
+.submenu {
+    padding-left: 16px;
+    margin-top: 4px;
+}
+
+.submenuItem {
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: block;
+    padding: 5px 0;
+    transition: 0.2s;
+}
+
+.submenuItem:hover {
+    color: var(--primary-color);
+}
+
+.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}

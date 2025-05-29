@@ -1,7 +1,14 @@
 .wrap {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.menuBlock {
+    width: 15%;
 }
 
 .outlet {
-    width: 80%;
+    width: 85%;
 }
