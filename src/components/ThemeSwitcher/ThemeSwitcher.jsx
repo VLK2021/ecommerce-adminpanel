@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './ThemeSwitcher.module.css';
-import { useThemeContext } from '../../context';
+import {useThemeContext} from '../../context';
 
 const ThemeSwitcher = () => {
-    const { theme, toggleTheme } = useThemeContext();
+    const {theme, toggleTheme} = useThemeContext();
 
     return (
         <button
@@ -12,10 +12,10 @@ const ThemeSwitcher = () => {
             aria-label="Перемкнути тему"
         >
             <div className={styles.icon}>
-                {theme === 'light' ? '🌞' : '🌜'}
+                {theme === 'light' ? '🔆' : '🌙'}
             </div>
         </button>
     );
 };
 
-export { ThemeSwitcher };
+export {ThemeSwitcher};

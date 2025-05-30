@@ -1,23 +1,33 @@
-.theme-toggle {
-    background-color: var(--card-bg);
-    border: 2px solid var(--primary-color);
+.themeToggle {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    width: 42px;
-    height: 42px;
+    background: var(--card-bg);
+    border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
     font-size: 20px;
     color: var(--text-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
-.theme-toggle:hover {
-    background-color: var(--primary-color);
+.themeToggle:hover {
+    background: var(--primary-color);
     color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
 }
 
-.theme-toggle .icon {
+.icon {
     pointer-events: none;
+    transition: transform 0.3s ease;
+}
+
+.themeToggle:active .icon {
+    transform: scale(0.9);
 }

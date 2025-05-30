@@ -3,6 +3,7 @@ import React from 'react';
 import css from './SideBarComponent.module.css';
 import {SidebarMenu} from "../SidebarMenu/SidebarMenu.jsx";
 import {ThemeSwitcher} from "../ThemeSwitcher/ThemeSwitcher.jsx";
+import {LogoutComponent} from "../LogoutComponent/LogoutComponent.jsx";
 
 
 const SideBarComponent = () => {
@@ -12,7 +13,11 @@ const SideBarComponent = () => {
                 <SidebarMenu/>
             </div>
 
-            <ThemeSwitcher/>
+            <div className={css.themeBlock}>
+                <LogoutComponent/>
+
+                <ThemeSwitcher/>
+            </div>
         </div>
     );
 };
