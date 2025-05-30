@@ -10,7 +10,7 @@ import {
     LoginPage,
     OrdersPage, PaymentsPage,
     ProductPage,
-    RegisterPage, ReturnsPage, ReviewsPage, SettingsPage, ShippingPage, StocksPage
+    RegisterPage, ReturnsPage, ReviewsPage, SettingsPage, ShippingPage, StocksPage, VerifyEmailPage
 } from "./pages/index.js";
 import PrivateLayout from "./layouts/PrivateLayout/PrivateLayout.jsx";
 import {PrivateRoute} from "./hok/index.js";
@@ -23,7 +23,8 @@ const router = createBrowserRouter([
             {
                 element: <PublicLayout/>, children: [
                     {path: "/login", element: <LoginPage/>},
-                    {path: "/register", element: <RegisterPage/>}
+                    {path: "/register", element: <RegisterPage/>},
+                    {path: '/verify-email', element: <VerifyEmailPage/>},
                 ]
             },
             {

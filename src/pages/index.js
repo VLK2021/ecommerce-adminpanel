@@ -14,3 +14,4 @@ export * from './ShippingPage/ShippingPage.jsx';
 export * from './PaymentsPage/PaymentsPage.jsx';
 export * from './ReturnsPage/ReturnsPage.jsx';
 export * from './SettingsPage/SettingsPage.jsx';
+export * from './VerifyEmailPage/VerifyEmailPage.jsx';

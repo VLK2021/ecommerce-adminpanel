@@ -11,6 +11,18 @@
     overflow-y: auto;
 }
 
+.activeUserBlock {
+    width: 100%;
+    height: 4rem;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
 .themeBlock {
     height: 4rem;
     flex-shrink: 0;
