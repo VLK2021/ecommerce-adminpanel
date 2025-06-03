@@ -51,6 +51,7 @@
 
 
   /* тема за замовчуванням (light) */
+  --bg-color-hr: var(--el-color-info-light-8);
   --bg-color: var(--el-color-white);
   --card-bg: var(--el-color-primary-light-9);
   --text-color: var(--el-color-black);
@@ -65,6 +66,7 @@
 
 /* dark */
 [data-theme='dark'] {
+  --bg-color-hr: var(--el-color-menu-base);
   --bg-color: var(--el-color-menu-darkest);
   --card-bg: var(--el-color-menu-base);
   --text-color: var(--el-color-white);
@@ -78,88 +80,3 @@
 
   background: linear-gradient(135deg, #1a1a22, #262631);
 }
-
-
-/*:root {*/
-/*  !* Base Palette *!*/
-/*  --el-white: #ffffff;*/
-/*  --el-black: #000000;*/
-
-/*  --el-gray-100: #f8f9fa;*/
-/*  --el-gray-200: #e9ecef;*/
-/*  --el-gray-300: #dee2e6;*/
-/*  --el-gray-600: #6c757d;*/
-/*  --el-gray-900: #212529;*/
-
-/*  --el-blue: #3b82f6;*/
-/*  --el-blue-light: #93c5fd;*/
-/*  --el-blue-dark: #1e40af;*/
-
-/*  --el-purple: #8b5cf6;*/
-/*  --el-purple-light: #c4b5fd;*/
-/*  --el-purple-dark: #5b21b6;*/
-
-/*  --el-error: #ef4444;*/
-/*  --el-error-light: #fca5a5;*/
-/*  --el-error-dark: #b91c1c;*/
-
-/*  !* Light Theme *!*/
-/*  --bg-color: var(--el-white);*/
-/*  --card-bg: var(--el-gray-100);*/
-/*  --text-color: var(--el-gray-900);*/
-/*  --text-secondary: var(--el-gray-600);*/
-/*  --primary-color: var(--el-blue);*/
-/*  --accent-color: var(--el-purple);*/
-/*  --error-color: var(--el-error);*/
-/*}*/
-
-/*[data-theme='dark'] {*/
-/*  --bg-color: #0f172a;*/
-/*  --card-bg: #1e293b;*/
-/*  --text-color: #f8fafc;*/
-/*  --text-secondary: #94a3b8;*/
-/*  --primary-color: var(--el-blue-light);*/
-/*  --accent-color: var(--el-purple-light);*/
-/*  --error-color: var(--el-error-light);*/
-/*}*/
-
-
-/*:root {*/
-/*  --el-white: #ffffff;*/
-/*  --el-black: #1e1e1e;*/
-
-/*  --el-green: #16a34a;*/
-/*  --el-green-light: #86efac;*/
-/*  --el-green-dark: #166534;*/
-
-/*  --el-orange: #f97316;*/
-/*  --el-orange-light: #fdba74;*/
-/*  --el-orange-dark: #c2410c;*/
-
-/*  --el-gray-50: #f9fafb;*/
-/*  --el-gray-200: #e5e7eb;*/
-/*  --el-gray-800: #1f2937;*/
-
-/*  --el-error: #dc2626;*/
-/*  --el-error-light: #fca5a5;*/
-/*  --el-error-dark: #991b1b;*/
-
-/*  !* Light Theme *!*/
-/*  --bg-color: var(--el-gray-50);*/
-/*  --card-bg: var(--el-white);*/
-/*  --text-color: var(--el-black);*/
-/*  --text-secondary: var(--el-gray-800);*/
-/*  --primary-color: var(--el-green);*/
-/*  --accent-color: var(--el-orange);*/
-/*  --error-color: var(--el-error);*/
-/*}*/
-
-/*[data-theme='dark'] {*/
-/*  --bg-color: #111827;*/
-/*  --card-bg: #1f2937;*/
-/*  --text-color: #f9fafb;*/
-/*  --text-secondary: #9ca3af;*/
-/*  --primary-color: var(--el-green-light);*/
-/*  --accent-color: var(--el-orange-light);*/
-/*  --error-color: var(--el-error-light);*/
-/*}*/

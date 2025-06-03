@@ -13,11 +13,12 @@ const adminMenu = [
     },
     {
         label: '🗂️ Каталог',
-        children: [
-            { label: '📦 Товари', to: '/catalog/products' },
-            { label: '🗃️ Категорії', to: '/catalog/categories' },
-            { label: '🏷️ Виробники', to: '/catalog/brands' },
-        ],
+        to: '/catalog'
+        // children: [
+        //     // { label: '📦 Товари', to: '/catalog/products' },
+        //     // { label: '🗃️ Категорії', to: '/catalog/categories' },
+        //     // { label: '🏷️ Виробники', to: '/catalog/brands' },
+        // ],
     },
     {
         label: '👥 Клієнти',

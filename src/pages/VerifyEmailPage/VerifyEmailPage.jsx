@@ -17,10 +17,10 @@ const VerifyEmailPage = () => {
                 });
 
                 localStorage.setItem('accessToken', res.data.accessToken);
-                navigate('/dashboard'); // або куди хочеш
+                navigate('/login'); // або куди хочеш
             } catch (e) {
                 console.error(e);
-                navigate('/error'); // або показати повідомлення
+                // navigate('/error'); // або показати повідомлення
             }
         };
 

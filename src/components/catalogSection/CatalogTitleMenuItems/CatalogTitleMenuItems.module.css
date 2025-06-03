@@ -1,0 +1,41 @@
+.wrap {
+    width: 100%;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--bg-color-hr);
+}
+
+.ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 3rem;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.9rem 0;
+    transition: background-color 0.4s, color 0.4s;
+    text-decoration: none;
+}
+
+.menuText {
+    font-size: 1rem;
+    color: var(--aside-text);
+}
+
+.menuText:hover {
+    color: var(--primary-color);
+}
+
+.active {
+    border-bottom: 3px solid var(--aside-hover);
+}
+
+.active .menuText {
+    color: var(--primary-color);
+}

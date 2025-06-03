@@ -3,17 +3,20 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 import MainLayout from "./layouts/MainLayout/MainLayout.jsx";
 import PublicLayout from "./layouts/PublicLayout/PublicLayout.jsx";
 import {
-    BrandsPage,
-    CartsPage,
-    CategoriesPage, ClientsPage,
+    CartsPage, CatalogPage,
+    ClientsPage,
     DashboardPage, DiscountsPage,
     LoginPage,
     OrdersPage, PaymentsPage,
-    ProductPage,
     RegisterPage, ReturnsPage, ReviewsPage, SettingsPage, ShippingPage, StocksPage, VerifyEmailPage
-} from "./pages/index.js";
+} from "./pages";
 import PrivateLayout from "./layouts/PrivateLayout/PrivateLayout.jsx";
 import {PrivateRoute} from "./hok/index.js";
+import {
+    CatalogBrandsComponent,
+    CatalogCategoryComponent,
+    CatalogProductsComponent
+} from "./components/catalogSection/index.js";
 
 const router = createBrowserRouter([
     {
@@ -32,9 +35,12 @@ const router = createBrowserRouter([
                     {path: '/dashboard', element: <DashboardPage/>, children: []},
                     {path: '/orders', element: <OrdersPage/>, children: []},
                     {path: '/carts', element: <CartsPage/>, children: []},
-                    {path: '/catalog/products', element: <ProductPage/>, children: []},
-                    {path: '/catalog/categories', element: <CategoriesPage/>, children: []},
-                    {path: '/catalog/brands', element: <BrandsPage/>, children: []},
+                    {path: '/catalog', element: <CatalogPage/>, children: [
+                            {index: true, element: <Navigate to={'/catalog/products'}/>},
+                            {path: 'products', element: <CatalogProductsComponent/>},
+                            {path: 'categories', element: <CatalogCategoryComponent/>},
+                            {path: 'brands', element: <CatalogBrandsComponent/>},
+                        ]},
                     {path: '/clients', element: <ClientsPage/>, children: []},
                     {path: '/reviews', element: <ReviewsPage/>, children: []},
                     {path: '/discounts', element: <DiscountsPage/>, children: []},
