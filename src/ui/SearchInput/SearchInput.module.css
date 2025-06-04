@@ -9,6 +9,10 @@
     transition: border-color 0.2s ease;
 }
 
+.wrapper:hover {
+    border-color: var(--primary-color);
+}
+
 .wrapper:focus-within {
     border-color: var(--primary-color);
 }
