@@ -9,7 +9,7 @@ import {
     LoginPage,
     OrdersPage, PaymentsPage,
     RegisterPage, ReturnsPage, ReviewsPage, SettingsPage, ShippingPage, StocksPage, VerifyEmailPage
-} from "./pages";
+} from "./pages/index.js";
 import PrivateLayout from "./layouts/PrivateLayout/PrivateLayout.jsx";
 import {PrivateRoute} from "./hok/index.js";
 import {

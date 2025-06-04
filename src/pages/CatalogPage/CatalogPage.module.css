@@ -1,12 +1,17 @@
 .wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     width: 100%;
-    height: 100%;
 }
 
 .menuBlock {
-    width: 100%;
+    height: 2.8rem;
+    flex-shrink: 0;
 }
 
 .outletBlock {
-    width: 100%;
+    flex: 1;
+    overflow: hidden;
 }
+

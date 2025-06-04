@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 0.9rem 0;
+    padding: 0.8rem 0;
     transition: background-color 0.4s, color 0.4s;
     text-decoration: none;
 }
@@ -39,3 +39,5 @@
 .active .menuText {
     color: var(--primary-color);
 }
+
+
