@@ -8,7 +8,7 @@ const ButtonCancel = (props) => {
 
 
     return (
-        <button className={css.wrap} onClick={onClick}>
+        <button type="button" className={css.wrap} onClick={onClick}>
             <span>Закінчити</span>
             <span className={css.icon}>+</span>
         </button>

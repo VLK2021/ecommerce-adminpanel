@@ -1,0 +1,32 @@
+.wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background-color: var(--bg-color-hr);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+    margin-bottom: 2px;
+}
+
+.wrap:hover {
+    background-color: var(--aside-hover);
+    border-color: var(--secondary-color);
+}
+
+.checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+    margin: 0;
+    transform: translateY(1px);
+    cursor: pointer;
+}
+
+.labelText {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    line-height: 1;
+}

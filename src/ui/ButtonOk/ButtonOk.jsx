@@ -8,7 +8,7 @@ const ButtonOk = (props) => {
 
 
     return (
-        <button className={css.wrap} onClick={onClick}>
+        <button type="submit" className={css.wrap} onClick={onClick}>
             <span>OK</span>
         </button>
     );

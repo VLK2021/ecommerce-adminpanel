@@ -13,6 +13,7 @@ import {
 import PrivateLayout from "./layouts/PrivateLayout/PrivateLayout.jsx";
 import {PrivateRoute} from "./hok/index.js";
 import {
+    CatalogAttributesComponent,
     CatalogBrandsComponent,
     CatalogCategoryComponent,
     CatalogProductsComponent
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
                             {index: true, element: <Navigate to={'/catalog/products'}/>},
                             {path: 'products', element: <CatalogProductsComponent/>},
                             {path: 'categories', element: <CatalogCategoryComponent/>},
+                            {path: 'attributes', element: <CatalogAttributesComponent/>},
                             {path: 'brands', element: <CatalogBrandsComponent/>},
                         ]},
                     {path: '/clients', element: <ClientsPage/>, children: []},

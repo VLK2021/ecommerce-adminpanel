@@ -1,45 +1,43 @@
 import React from 'react';
 
-import css from './ProductMenuComponent.module.css';
+import css from './AttributesMenuComponent.module.css';
 import {ButtonCreate, CustomSelect, SearchInput} from "../../../ui/index.js";
 
 
-const sortOptionsProducts = [
+const sortOptionsAttributes = [
     { value: 'name_asc', label: 'Назва (А-Я)' },
     { value: 'name_desc', label: 'Назва (Я-А)' },
-    { value: 'price_asc', label: 'Ціна ↑' },
-    { value: 'price_desc', label: 'Ціна ↓' },
 ];
 
 
-const ProductMenuComponent = () => {
-    const handleSearchProducts = (query) => {
-        console.log(query);
-    }
 
-    const handleSortChangeProducts = (value) => {
+const AttributesMenuComponent = () => {
+    const handleSearchAttributes = (query) => {
+        console.log(query);
+    };
+
+    const handleSortChangeAttributes = (value) => {
         console.log(value);
     }
-
-
+    
     return (
         <div className={css.wrap}>
             <ButtonCreate/>
 
             <SearchInput
-                name={"productSearch"}
-                onDebouncedSearch={handleSearchProducts}
+                name={"attributeSearch"}
+                onDebouncedSearch={handleSearchAttributes}
                 placeholder={'Пошук товарів'}
             />
 
             <CustomSelect
                 name={"sort"}
-                options={sortOptionsProducts}
+                options={sortOptionsAttributes}
                 placeholder={"Сортувати за"}
-                onChangeCallback={handleSortChangeProducts}
+                onChangeCallback={handleSortChangeAttributes}
             />
         </div>
     );
 };
 
-export {ProductMenuComponent};
+export {AttributesMenuComponent};

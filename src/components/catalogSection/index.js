@@ -3,3 +3,8 @@ export * from './CatalogProductsComponent/CatalogProductsComponent.jsx';
 export * from './CatalogCategoryComponent/CatalogCategoryComponent.jsx';
 export * from './CatalogBrandsComponent/CatalogBrandsComponent.jsx';
 export * from './ProductMenuComponent/ProductMenuComponent.jsx';
+export * from './CategoryMenuComponent/CategoryMenuComponent.jsx';
+export * from './CategoryListComponent/CategoryListComponent.jsx';
+export * from './CategorySingleItemComponent/CategorySingleItemComponent.jsx'
+export * from './CatalogAttributesComponent/CatalogAttributesComponent.jsx';
+export * from './AttributesListComponent/AttributesListComponent.jsx';

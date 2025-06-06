@@ -8,6 +8,10 @@ const catalogMenuItems =  [
         linkForRoute: '/catalog/categories'
     },
     {
+        name: 'Атрибути',
+        linkForRoute: '/catalog/attributes'
+    },
+    {
         name: 'Виробники',
         linkForRoute: '/catalog/brands'
     },

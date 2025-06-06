@@ -6,6 +6,10 @@ const urls = {
         logout : '/auth/logout',
         getMe : '/auth/me',
     },
+    category: '/categories',
+    attributes: {
+        attribute: '/attributes',
+    }
 }
 
 export {
