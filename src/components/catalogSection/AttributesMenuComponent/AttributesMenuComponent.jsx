@@ -11,7 +11,7 @@ const sortOptionsAttributes = [
 
 
 
-const AttributesMenuComponent = () => {
+const AttributesMenuComponent = ({setIsOpenCreateAttribute}) => {
     const handleSearchAttributes = (query) => {
         console.log(query);
     };
@@ -19,10 +19,11 @@ const AttributesMenuComponent = () => {
     const handleSortChangeAttributes = (value) => {
         console.log(value);
     }
-    
+
+
     return (
         <div className={css.wrap}>
-            <ButtonCreate/>
+            <ButtonCreate onClick={() => setIsOpenCreateAttribute(true)}/>
 
             <SearchInput
                 name={"attributeSearch"}

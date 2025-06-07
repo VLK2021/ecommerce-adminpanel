@@ -8,6 +8,8 @@ const attributeService = {
     createAttribute: (data) => axiosService.post(urls.attributes.attribute, data)
         .then(value => value.data),
 
+    deleteAttribute: (id) => axiosService.delete(`${urls.attributes.attribute}/${id}`)
+
 };
 
 export {

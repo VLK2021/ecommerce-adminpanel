@@ -5,11 +5,15 @@ import {ToastContainer} from "react-toastify";
 import {CategoryMenuComponent} from "../CategoryMenuComponent/CategoryMenuComponent.jsx";
 import {CategoryCreateModal, CategoryUpdateModal} from "../catalogModals/index.js";
 import {CategoryListComponent} from "../CategoryListComponent/CategoryListComponent.jsx";
+import {
+    AssignAttributesToCategoryModal
+} from "../catalogModals/AssignAttributesToCategoryModal/AssignAttributesToCategoryModal.jsx";
 
 
 const CatalogCategoryComponent = () => {
     const [isOpenCreateCategory, setIsOpenCreateCategory] = useState(false);
     const [isOpenUpdateCategory, setIsOpenUpdateCategory] = useState(false);
+    const [isOpenAssignAttributes, setIsOpenAssignAttributes] = useState(false);
     const [idCategory, setIdCategory] = useState(null);
 
 
@@ -21,6 +25,7 @@ const CatalogCategoryComponent = () => {
             <div className={css.menuBlock}>
                 <CategoryMenuComponent
                     setIsOpenCreateCategory={setIsOpenCreateCategory}
+                    setIsOpenAssignAttributes={setIsOpenAssignAttributes}
                 />
             </div>
 
@@ -42,6 +47,9 @@ const CatalogCategoryComponent = () => {
             {isOpenUpdateCategory && <CategoryUpdateModal
                 setIsOpenUpdateCategory={setIsOpenUpdateCategory}
                 idCategory={idCategory}
+            />}
+            {isOpenAssignAttributes && <AssignAttributesToCategoryModal
+                setIsOpenAssignAttributes={setIsOpenAssignAttributes}
             />}
         </div>
     );

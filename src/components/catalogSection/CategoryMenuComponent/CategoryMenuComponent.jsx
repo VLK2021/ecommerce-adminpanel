@@ -1,7 +1,7 @@
 import React from 'react';
 
 import css from './CategoryMenuComponent.module.css';
-import {ButtonCreate, CustomSelect, SearchInput} from "../../../ui/index.js";
+import {ButtonAll, ButtonCreate, CustomSelect, SearchInput} from "../../../ui/index.js";
 
 
 const sortOptionsCategories = [
@@ -10,7 +10,7 @@ const sortOptionsCategories = [
 ];
 
 
-const CategoryMenuComponent = ({setIsOpenCreateCategory}) => {
+const CategoryMenuComponent = ({setIsOpenCreateCategory, setIsOpenAssignAttributes}) => {
     const handleSearchCategory = (query) => {
         console.log(query);
     };
@@ -37,6 +37,11 @@ const CategoryMenuComponent = ({setIsOpenCreateCategory}) => {
                 options={sortOptionsCategories}
                 placeholder={"Сортувати за"}
                 onChangeCallback={handleSortChangeCategories}
+            />
+
+            <ButtonAll
+                titleButton="Привʼязати атрибути"
+                onClick={() => setIsOpenAssignAttributes(true)}
             />
         </div>
     );

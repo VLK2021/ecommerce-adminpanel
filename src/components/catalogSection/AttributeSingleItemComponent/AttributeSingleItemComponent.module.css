@@ -30,3 +30,16 @@
     color: var(--text-color);
     line-height: 1;
 }
+
+.closeButtonWrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.closeButtonWrapper[data-disabled="true"] {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
