@@ -7,7 +7,7 @@ import {attributeAction} from "../../../store/slices/attributeSlice.jsx";
 import {attributeService} from "../../../services/catalogServaces/index.js";
 
 
-const AttributeSingleItemComponent = ({ attribute }) => {
+const AttributeSingleItemComponent = ({attribute}) => {
     const dispatch = useDispatch();
     const {id, name, assigned} = attribute;
 
@@ -21,12 +21,13 @@ const AttributeSingleItemComponent = ({ attribute }) => {
         }
     };
 
+
     return (
         <div className={css.wrap}>
             <span className={css.labelText}>{name}</span>
 
             <div className={css.closeButtonWrapper} data-disabled={assigned}>
-                <ButtonClose disabled={assigned} onClick={handleAttributeDeleteClick} />
+                <ButtonClose disabled={assigned} onClick={handleAttributeDeleteClick}/>
             </div>
         </div>
     );

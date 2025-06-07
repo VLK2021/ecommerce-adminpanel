@@ -1,15 +1,19 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import css from './CategorySingleItemComponent.module.css';
-import { ButtonClose } from '../../../ui';
-import { categoryService } from '../../../services/catalogServaces';
-import { categoryActions } from '../../../store/slices/category.slice.jsx';
+import {ButtonClose} from '../../../ui';
+import {categoryService} from '../../../services/catalogServaces';
+import {categoryActions} from '../../../store/slices/category.slice.jsx';
 
 
-const CategorySingleItemComponent = ({ category, setIsOpenUpdateCategory, setIdCategory }) => {
+const CategorySingleItemComponent = ({
+                                         category,
+                                         setIsOpenUpdateCategory,
+                                         setIdCategory
+                                     }) => {
     const dispatch = useDispatch();
-    const { name, id } = category;
+    const {name, id, hasAttributes} = category;
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -28,12 +32,13 @@ const CategorySingleItemComponent = ({ category, setIsOpenUpdateCategory, setIdC
         }
     };
 
+
     return (
         <div className={css.wrap} onClick={handleClick}>
             <span className={css.name}>{name}</span>
 
-            <div className={css.actions}>
-                <ButtonClose onClick={handleDeleteClick} />
+            <div className={css.actions} data-disabled={hasAttributes}>
+                <ButtonClose disabled={hasAttributes} onClick={handleDeleteClick}/>
             </div>
         </div>
     );

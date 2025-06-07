@@ -15,7 +15,10 @@ const categoryService = {
     updateCategory: (id, data) => axiosService.patch(`${urls.category}/${id}`, data)
         .then(value => value.data),
 
-    deleteCategory: (id) => axiosService.delete(`${urls.category}/${id}`)
+    deleteCategory: (id) => axiosService.delete(`${urls.category}/${id}`),
+
+    getAttributesForCategory: (categoryId) => axiosService.get(`${urls.attributes.attribute}/category/${categoryId}`)
+        .then(value => value.data),
 };
 
 export {categoryService};
