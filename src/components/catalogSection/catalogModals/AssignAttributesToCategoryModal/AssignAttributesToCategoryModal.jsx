@@ -1,10 +1,12 @@
 import React, {useEffect, useMemo} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
-import css from './AssignAttributesToCategoryModal.module.css';
+import {toast} from "react-toastify";
 
+import css from './AssignAttributesToCategoryModal.module.css';
 import {ButtonCancel, ButtonClose, ButtonOk, CustomSelect} from "../../../../ui/index.js";
 import {attributeAction} from "../../../../store/slices/attributeSlice.jsx";
+import {attributeService} from "../../../../services/catalogServaces/index.js";
 
 
 const AssignAttributesToCategoryModal = ({setIsOpenAssignAttributes}) => {
@@ -40,16 +42,21 @@ const AssignAttributesToCategoryModal = ({setIsOpenAssignAttributes}) => {
         );
     }, [searchValue, attributes]);
 
-    const onSubmit = (data) => {
-        const payload = {
-            categoryId: data.categoryId,
-            attributeIds: data.attributeIds,
-        };
 
-        console.log(payload);
+    const onSubmit = async (data) => {
+        try {
+            const formatedData = {
+                categoryId: data.categoryId,
+                attributeIds: data.attributeIds,
+            };
+            await attributeService.assignAttributesToCategory(formatedData);
 
-        // dispatch(attributeAction.assignAttributes(payload));
-        setIsOpenAssignAttributes(false);
+            toast.success('Атрибути успішно додані!');
+            setIsOpenAssignAttributes(false);
+        }catch (error) {
+            console.error(error);
+            toast.error('Помилка додавання!');
+        }
     };
 
     const handleCheckbox = (id, current) => {
@@ -60,6 +67,7 @@ const AssignAttributesToCategoryModal = ({setIsOpenAssignAttributes}) => {
     };
 
     const selectedIds = watch('attributeIds');
+
 
     return (
         <div className={css.overlay}>

@@ -11,35 +11,24 @@ const AttributeSingleItemComponent = ({ attribute }) => {
     const dispatch = useDispatch();
     const {id, name, assigned} = attribute;
 
-    const handleAttributeClick = (e) => {
-        e.stopPropagation();
-    };
-
     const handleAttributeDeleteClick = async (e) => {
         e.stopPropagation();
         try {
             await attributeService.deleteAttribute(id);
             dispatch(attributeAction.changeTrigger());
         } catch (err) {
-            console.error('Помилка при видаленні категорії', err);
+            console.error('Помилка при видаленні атрибута', err);
         }
     };
 
-
-
     return (
-        <label className={css.wrap} onClick={handleAttributeClick}>
-            {/*<input*/}
-            {/*    type="checkbox"*/}
-            {/*    className={css.checkbox}*/}
-            {/*    value={id}*/}
-            {/*/>*/}
+        <div className={css.wrap}>
             <span className={css.labelText}>{name}</span>
 
             <div className={css.closeButtonWrapper} data-disabled={assigned}>
                 <ButtonClose disabled={assigned} onClick={handleAttributeDeleteClick} />
             </div>
-        </label>
+        </div>
     );
 };
 

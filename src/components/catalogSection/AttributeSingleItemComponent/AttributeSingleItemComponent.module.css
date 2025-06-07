@@ -38,8 +38,10 @@
 }
 
 .closeButtonWrapper[data-disabled="true"] {
-    pointer-events: none;
     cursor: not-allowed;
     opacity: 0.5;
 }
 
+.closeButtonWrapper[data-disabled="true"] button {
+    cursor: not-allowed !important;
+}

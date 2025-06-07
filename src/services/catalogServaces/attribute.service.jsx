@@ -8,8 +8,10 @@ const attributeService = {
     createAttribute: (data) => axiosService.post(urls.attributes.attribute, data)
         .then(value => value.data),
 
-    deleteAttribute: (id) => axiosService.delete(`${urls.attributes.attribute}/${id}`)
+    deleteAttribute: (id) => axiosService.delete(`${urls.attributes.attribute}/${id}`),
 
+    assignAttributesToCategory: (data) => axiosService.post(`${urls.attributes.attribute}/assign`, data)
+        .then(value => value.data),
 };
 
 export {
