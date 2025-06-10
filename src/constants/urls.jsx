@@ -9,7 +9,8 @@ const urls = {
     category: '/categories',
     attributes: {
         attribute: '/attributes',
-    }
+    },
+    product: '/products',
 }
 
 export {

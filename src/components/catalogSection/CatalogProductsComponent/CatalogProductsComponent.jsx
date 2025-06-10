@@ -1,11 +1,17 @@
 import React from 'react';
 import {ToastContainer} from "react-toastify";
+import {useSelector} from "react-redux";
 
 import css from './CatalogProductsComponent.module.css';
 import {ProductMenuComponent} from "../ProductMenuComponent/ProductMenuComponent.jsx";
+import {ProductsListComponent} from "../ProductsListComponent/ProductsListComponent.jsx";
+import {ProductCreateModal} from "../catalogModals/index.js";
 
 
 const CatalogProductsComponent = () => {
+    const {isOpenCreateModal, isOpenUpdateModal} = useSelector(state => state.product);
+
+
     return (
         <div className={css.wrap}>
             <ToastContainer/>
@@ -15,12 +21,15 @@ const CatalogProductsComponent = () => {
             </div>
 
             <div className={css.contentBlock}>
-
+                <ProductsListComponent/>
             </div>
 
             <div className={css.paginationBlock}>
 
             </div>
+
+            {isOpenCreateModal && <ProductCreateModal/>}
+            {isOpenUpdateModal && ''}
         </div>
     );
 };
