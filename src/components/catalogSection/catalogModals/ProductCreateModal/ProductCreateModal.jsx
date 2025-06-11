@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import css from './ProductCreateModal.module.css';
 import { ButtonCancel, ButtonClose, ButtonOk, CustomSelect } from "../../../../ui";
@@ -17,36 +18,13 @@ const ProductCreateModal = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [categoryAttributes, setCategoryAttributes] = useState([]);
 
-    const {
-        handleSubmit,
-        register,
-        formState: { errors },
-    } = useForm();
+    const { handleSubmit, register, formState: { errors } } = useForm();
 
     useEffect(() => {
         dispatch(categoryActions.getAllCategories());
     }, [dispatch]);
 
-    const getPresignedUrl = async (file) => {
-        const response = await axiosService.get('/products/presign', {
-            params: {
-                filename: file.name,
-                type: file.type
-            }
-        });
-        return response.data.url;
-    };
-
-    const uploadFileToS3 = async (file, url) => {
-        await fetch(url, {
-            method: 'PUT',
-            headers: { 'Content-Type': file.type },
-            body: file,
-        });
-        return url.split('?')[0];
-    };
-
-    const handleImageUpload = async (e) => {
+    const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
         const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
 
@@ -76,19 +54,7 @@ const ProductCreateModal = () => {
             return;
         }
 
-        try {
-            const uploaded = await Promise.all(
-                uniqueFiles.map(async (file) => {
-                    const url = await getPresignedUrl(file);
-                    const s3Url = await uploadFileToS3(file, url);
-                    return { name: file.name, size: file.size, url: s3Url };
-                })
-            );
-
-            setImages(prev => [...prev, ...uploaded]);
-        } catch (err) {
-            console.error('Upload error:', err);
-        }
+        setImages(prev => [...prev, ...uniqueFiles]);
     };
 
     const handleCategoryChange = async (categoryId) => {
@@ -105,29 +71,58 @@ const ProductCreateModal = () => {
         dispatch(productActions.closeCreateProductModal());
     };
 
-    const onSubmit = async (data) => {
-        const payload = {
-            name: data.title, // 🔥 тут змінюємо title → name
-            price: data.price?.toString(),
-            description: data.description,
-            stock: data.stok ? parseInt(data.stok, 10) : undefined,
-            isActive: data.isActive,
-            categoryId: selectedCategory,
-            images: images.map(img => img.url),
-            attributeValues: categoryAttributes.map((attr, index) => ({
-                attributeId: attr.attribute.id,
-                value: data.attributeValues?.[index]?.value || '',
-            })),
-        };
-
-        try {
-            await productService.createProduct(payload);
-            dispatch(productActions.changeTrigger());
-        } catch (err) {
-            console.error('❌ Помилка при створенні продукту:', err);
-        }
+    const getPresignedUrl = async (file) => {
+        const response = await axiosService.get('/products/presign', {
+            params: {
+                filename: file.name,
+                type: file.type
+            }
+        });
+        return response.data.url;
     };
 
+    const uploadFileToS3 = async (file, url) => {
+        await fetch(url, {
+            method: 'PUT',
+            headers: { 'Content-Type': file.type },
+            body: file,
+        });
+        return url.split('?')[0];
+    };
+
+    const onSubmit = async (data) => {
+        try {
+            const uploadedImages = await Promise.all(
+                images.map(async (file) => {
+                    const url = await getPresignedUrl(file);
+                    const s3Url = await uploadFileToS3(file, url);
+                    return s3Url;
+                })
+            );
+
+            const payload = {
+                name: data.title,
+                price: data.price?.toString(),
+                description: data.description,
+                stock: data.stok ? parseInt(data.stok, 10) : undefined,
+                isActive: data.isActive,
+                categoryId: selectedCategory,
+                images: uploadedImages,
+                attributeValues: categoryAttributes.map((attr, index) => ({
+                    attributeId: attr.attribute.id,
+                    value: data.attributeValues?.[index]?.value || '',
+                })),
+            };
+
+            await productService.createProduct(payload);
+            dispatch(productActions.changeTrigger());
+            toast.success('Товар успішно створений!');
+            dispatch(productActions.closeCreateProductModal());
+        } catch (err) {
+            console.error(err);
+            toast.error('Помилка створення');
+        }
+    };
 
     return (
         <div className={css.overlay}>
@@ -140,9 +135,9 @@ const ProductCreateModal = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
                     <div className={css.blockPictures}>
                         <div className={css.imagesContainer}>
-                            {images.map((img, index) => (
+                            {images.map((file, index) => (
                                 <div key={index} className={css.imageBox}>
-                                    <img src={img.url} alt="preview" />
+                                    <img src={URL.createObjectURL(file)} alt="preview" />
                                     <button
                                         type="button"
                                         className={css.removeButton}
