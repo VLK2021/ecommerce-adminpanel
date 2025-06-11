@@ -1,0 +1,20 @@
+.wrap {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: var(--bg-color-hr);
+    border-radius: 8px;
+    border: 1px solid var(--bg-color-hr);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.wrap:hover {
+    background-color: var(--aside-hover);
+    transform: scale(1.01);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}

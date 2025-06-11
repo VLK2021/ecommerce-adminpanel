@@ -9,7 +9,7 @@ const productService = {
     createProduct: (data) => axiosService.post(urls.product, data)
         .then(value => value.data),
 
-    updateProduct: (id, data) => axiosService.put(`${urls.product}/${id}`, data)
+    updateProduct: (id, data) => axiosService.patch(`${urls.product}/${id}`, data)
         .then(value => value.data),
 
     deleteProduct: (id) => axiosService.delete(`${urls.product}/${id}`),

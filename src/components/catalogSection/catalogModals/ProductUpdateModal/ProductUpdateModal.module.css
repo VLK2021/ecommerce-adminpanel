@@ -1,0 +1,311 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    width: 50%;
+    min-height: 33vh;
+    background: var(--bg-color);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* --- БЛОК ІЗ ФОТО --- */
+.blockPictures {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    background: var(--card-bg);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.imagesContainer {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.imageBox {
+    position: relative;
+    width: 80px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--el-color-menu-darker);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.imageBox:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.imageBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.removeButton {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background: var(--error-color);
+    color: white;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 1;
+}
+
+.removeButton:hover {
+    background: var(--el-color-error-dark-2);
+    transform: scale(1.1);
+}
+
+.uploadBox {
+    width: 80px;
+    height: 100px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 10px;
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    background: var(--el-color-menu-darkest);
+}
+
+.uploadBox:hover {
+    background: var(--el-color-menu-darker);
+    border-color: var(--el-color-primary-light-5);
+    color: var(--el-color-primary-light-5);
+    transform: scale(1.05);
+}
+
+/* --- ІНФОРМАЦІЙНИЙ БЛОК --- */
+.blockInfo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 2%;
+}
+
+.leftBlock,
+.rightBlock {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- ФОРМ-ГРУПИ --- */
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.formGroup label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--text-secondary);
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--el-color-info-light-7);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-style: italic;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(52, 144, 220, 0.2);
+}
+
+.formGroup input:hover,
+.formGroup textarea:hover,
+.formGroup select:hover {
+    border-color: var(--primary-color);
+    cursor: pointer;
+}
+
+/* --- SELECT СТРІЛКА --- */
+.selectWrapper {
+    position: relative;
+}
+
+.selectWrapper::after {
+    content: "▾";
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-secondary);
+}
+
+/* --- ТЕКСТ ПОМИЛОК --- */
+.errorText {
+    font-size: 0.75rem;
+    color: var(--error-color);
+}
+
+/* === Тогл-перемикач "Активний / Неактивний" === */
+.toggleWrapper {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.toggleInput {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggleSlider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--el-color-info-light-7);
+    transition: background-color 0.3s ease;
+    border-radius: 34px;
+}
+
+.toggleSlider::before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggleInput:checked + .toggleSlider {
+    background-color: var(--primary-color);
+}
+
+.toggleInput:checked + .toggleSlider::before {
+    transform: translateX(24px);
+}
+
+/* Блок всіх атрибутів зі скролом */
+.attributesScroll {
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--primary-color);
+}
+
+/* Один атрибут */
+.attributeItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+/* Назва атрибута */
+.attributeName {
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--primary-color);
+}
+
+/* Інпут під атрибут */
+.attributeInput {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.attributeInput:focus {
+    outline: none;
+}
+
+/* --- КНОПКИ ВНИЗУ --- */
+.buttonsBlock {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 2rem;
+}

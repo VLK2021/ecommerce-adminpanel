@@ -9,3 +9,4 @@ export * from './CategorySingleItemComponent/CategorySingleItemComponent.jsx'
 export * from './CatalogAttributesComponent/CatalogAttributesComponent.jsx';
 export * from './AttributesListComponent/AttributesListComponent.jsx';
 export * from './ProductsListComponent/ProductsListComponent.jsx';
+export * from './ProductSingleItemComponent/ProductSingleItemComponent.jsx';

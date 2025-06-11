@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import css from './CatalogProductsComponent.module.css';
 import {ProductMenuComponent} from "../ProductMenuComponent/ProductMenuComponent.jsx";
 import {ProductsListComponent} from "../ProductsListComponent/ProductsListComponent.jsx";
-import {ProductCreateModal} from "../catalogModals/index.js";
+import {ProductCreateModal, ProductUpdateModal} from "../catalogModals/index.js";
 
 
 const CatalogProductsComponent = () => {
@@ -29,7 +29,7 @@ const CatalogProductsComponent = () => {
             </div>
 
             {isOpenCreateModal && <ProductCreateModal/>}
-            {isOpenUpdateModal && ''}
+            {isOpenUpdateModal && <ProductUpdateModal/>}
         </div>
     );
 };
