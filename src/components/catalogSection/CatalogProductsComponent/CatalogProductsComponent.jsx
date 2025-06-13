@@ -25,10 +25,6 @@ const CatalogProductsComponent = () => {
                 <ProductsListComponent/>
             </div>
 
-            <div className={css.paginationBlock}>
-                <Pagination totalItems={100} totalPages={10}/>
-            </div>
-
             {isOpenCreateModal && <ProductCreateModal/>}
             {isOpenUpdateModal && <ProductUpdateModal/>}
             {isOpenDetailsModal && <SingleProductDetails/>}

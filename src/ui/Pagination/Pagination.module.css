@@ -1,11 +1,11 @@
 .paginationContainer {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border-top: 1px solid var(--bg-color-hr);
-    padding: 0.5rem;
     font-weight: bold;
+    color: var(--text-color);
 }
 
 .arrowButton,
@@ -13,9 +13,10 @@
 .activePageButton {
     padding: 8px 12px;
     cursor: pointer;
-    background-color: var(--aside-bg);
+    background-color: var(--card-bg);
     border: 1px solid var(--primary-color);
     border-radius: 4px;
+    color: var(--text-color);
 }
 
 .pageButton:hover,
@@ -29,7 +30,7 @@
 
 .arrowButton:disabled {
     cursor: not-allowed;
-    background-color: #ddd;
+    background-color: #888;
 }
 
 .dots {
@@ -51,9 +52,11 @@
 
 .pageInput {
     width: 60px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
     padding: 5px;
     text-align: center;
-    border: 1px solid #ccc;
     border-radius: 4px;
     margin-left: 2rem;
     margin-top: 10px;
