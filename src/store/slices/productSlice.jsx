@@ -19,6 +19,7 @@ const initialState = {
     products: [],
     isOpenCreateModal: false,
     isOpenUpdateModal: false,
+    isOpenDetailsModal: false,
     selectedProductId: null,
     status: null,
     error: null,
@@ -43,6 +44,12 @@ const productSlice = createSlice({
         },
         closeUpdateProductModal: (state) => {
             state.isOpenUpdateModal = false;
+        },
+        openDetailsModal: (state) => {
+            state.isOpenDetailsModal = true;
+        },
+        closeDetailsModal: (state) => {
+            state.isOpenDetailsModal = false;
         },
         selectProduct: (state, action) => {
             state.selectedProductId = action.payload;

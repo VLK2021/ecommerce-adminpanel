@@ -10,7 +10,6 @@ const ButtonAll = (props) => {
     return (
         <button className={css.wrap} onClick={onClick}>
             <span>{titleButton}</span>
-            <span className={css.icon}>+</span>
         </button>
     );
 };

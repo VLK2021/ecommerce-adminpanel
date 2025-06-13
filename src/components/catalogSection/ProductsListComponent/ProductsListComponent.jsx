@@ -17,6 +17,16 @@ const ProductsListComponent = () => {
 
     return (
         <div className={css.wrap}>
+            <div className={css.header}>
+                <div className={css.img}>Фото</div>
+                <div className={css.name}>Назва</div>
+                <div className={css.price}>Ціна</div>
+                <div className={css.category}>Категорія</div>
+                <div className={css.current}>Кількість</div>
+                <div className={css.status}>Статус</div>
+                <div className={css.action}>Дія</div>
+            </div>
+
             {products && products.length > 0 && products.map((product) => <ProductSingleItemComponent
                 key={product.id}
                 product={product}

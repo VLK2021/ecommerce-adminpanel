@@ -1,20 +1,72 @@
 .wrap {
     width: 100%;
-    padding: 10px 14px;
-    background-color: var(--bg-color-hr);
-    border-radius: 8px;
+    padding: 4px 16px;
     border: 1px solid var(--bg-color-hr);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2px;
+    box-sizing: border-box;
 }
 
 .wrap:hover {
     background-color: var(--aside-hover);
     transform: scale(1.01);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.img, .name, .price, .category, .current, .status {
+    border-right: 1px solid var(--el-color-primary);
+    height: 2.5rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.img {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img > img {
+    width: 90%;
+    height: 2rem;
+    object-fit: fill;
+
+}
+
+.name {
+    width: 30%;
+}
+
+.price {
+    width: 15%;
+}
+
+.category {
+    width: 10%;
+}
+
+.current {
+    width: 10%;
+}
+
+.status {
+    width: 10%;
+}
+
+.action {
+    width: 10%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }

@@ -1,3 +1,59 @@
 .wrap {
     width: 100%;
 }
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--el-color-primary);
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.header > div {
+    padding: 4px 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.img, .name, .price, .category, .current, .status {
+    border-right: 1px solid var(--el-color-primary);
+}
+
+.img {
+    width: 15%;
+}
+
+.name {
+    width: 30%;
+}
+
+.price {
+    width: 15%;
+}
+
+.category {
+    width: 10%;
+}
+
+.current {
+    width: 10%;
+}
+
+.status {
+    width: 10%;
+}
+
+.action {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

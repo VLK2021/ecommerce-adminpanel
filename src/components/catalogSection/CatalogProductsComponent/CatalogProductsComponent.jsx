@@ -5,11 +5,11 @@ import {useSelector} from "react-redux";
 import css from './CatalogProductsComponent.module.css';
 import {ProductMenuComponent} from "../ProductMenuComponent/ProductMenuComponent.jsx";
 import {ProductsListComponent} from "../ProductsListComponent/ProductsListComponent.jsx";
-import {ProductCreateModal, ProductUpdateModal} from "../catalogModals/index.js";
+import {ProductCreateModal, ProductUpdateModal, SingleProductDetails} from "../catalogModals/index.js";
 
 
 const CatalogProductsComponent = () => {
-    const {isOpenCreateModal, isOpenUpdateModal} = useSelector(state => state.product);
+    const {isOpenCreateModal, isOpenUpdateModal, isOpenDetailsModal} = useSelector(state => state.product);
 
 
     return (
@@ -30,6 +30,7 @@ const CatalogProductsComponent = () => {
 
             {isOpenCreateModal && <ProductCreateModal/>}
             {isOpenUpdateModal && <ProductUpdateModal/>}
+            {isOpenDetailsModal && <SingleProductDetails/>}
         </div>
     );
 };
