@@ -6,6 +6,7 @@ import css from './CatalogProductsComponent.module.css';
 import {ProductMenuComponent} from "../ProductMenuComponent/ProductMenuComponent.jsx";
 import {ProductsListComponent} from "../ProductsListComponent/ProductsListComponent.jsx";
 import {ProductCreateModal, ProductUpdateModal, SingleProductDetails} from "../catalogModals/index.js";
+import {Pagination} from "../../../ui/Pagination/Pagination.jsx";
 
 
 const CatalogProductsComponent = () => {
@@ -25,7 +26,7 @@ const CatalogProductsComponent = () => {
             </div>
 
             <div className={css.paginationBlock}>
-
+                <Pagination totalItems={100} totalPages={10}/>
             </div>
 
             {isOpenCreateModal && <ProductCreateModal/>}

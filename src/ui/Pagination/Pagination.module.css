@@ -1,0 +1,64 @@
+.paginationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-top: 1px solid var(--bg-color-hr);
+    padding: 0.5rem;
+    font-weight: bold;
+}
+
+.arrowButton,
+.pageButton,
+.activePageButton {
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: var(--aside-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.pageButton:hover,
+.activePageButton {
+    background-color: var(--primary-color);
+}
+
+.activePageButton {
+    background-color: var(--primary-color);
+}
+
+.arrowButton:disabled {
+    cursor: not-allowed;
+    background-color: #ddd;
+}
+
+.dots {
+    font-size: 18px;
+    color: #888;
+}
+
+.goToContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-left: 2rem;
+}
+
+.span {
+    padding: 6px 12px;
+}
+
+.pageInput {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 2rem;
+    margin-top: 10px;
+}
+
+.totalItems {
+    margin-left: 10rem;
+}
