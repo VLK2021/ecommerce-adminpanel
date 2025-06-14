@@ -1,33 +1,48 @@
-import React, {useState, useEffect} from 'react';
-import {FiChevronDown} from 'react-icons/fi';
+import React, { useEffect, useRef, useState } from 'react';
+import { FiChevronDown } from 'react-icons/fi';
 
 import css from './CustomSelect.module.css';
+
 
 const CustomSelect = ({
                           value,
                           onChangeCallback,
                           options = [],
                           placeholder = 'Оберіть значення',
-                          name,
+                          name
                       }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const ref = useRef(null);
 
     const toggleOpen = () => setIsOpen(prev => !prev);
 
     const handleSelect = (val) => {
-        onChangeCallback?.(val);
+        if (val !== value) {
+            onChangeCallback?.(val);
+        }
         setIsOpen(false);
     };
 
-    const selectedLabel = options.find(opt => opt.value === value)?.label || value;
+    const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const selectedLabel = options.find(opt => opt.value === value)?.label;
 
     return (
-        <div className={css.selectContainer}>
+        <div className={css.selectContainer} ref={ref}>
             <div className={css.selectBox} onClick={toggleOpen}>
-        <span className={value ? css.selectedText : css.placeholder}>
-          {value ? selectedLabel : placeholder}
-        </span>
-                <FiChevronDown className={`${css.icon} ${isOpen ? css.iconOpen : ''}`}/>
+                <span className={value ? css.selectedText : css.placeholder}>
+                    {selectedLabel || placeholder}
+                </span>
+                <FiChevronDown className={`${css.icon} ${isOpen ? css.iconOpen : ''}`} />
             </div>
 
             {isOpen && (
@@ -35,7 +50,7 @@ const CustomSelect = ({
                     {options.map(option => (
                         <li
                             key={option.value}
-                            className={css.option}
+                            className={`${css.option} ${option.value === value ? css.activeOption : ''}`}
                             onClick={() => handleSelect(option.value)}
                         >
                             {option.label}
@@ -47,5 +62,4 @@ const CustomSelect = ({
     );
 };
 
-export {CustomSelect};
-
+export { CustomSelect };

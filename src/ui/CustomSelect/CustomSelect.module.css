@@ -72,3 +72,9 @@
     background-color: var(--aside-bg);
     color: var(--text-color);
 }
+
+.activeOption {
+    background-color: var(--primary-light);
+    font-weight: 500;
+}
+
