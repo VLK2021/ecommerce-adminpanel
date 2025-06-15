@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useCallback} from 'react';
-
+import React, { useState, useEffect, useCallback } from 'react';
 import css from './Pagination.module.css';
 
-
-const Pagination = ({ totalPages, totalItems, onPageChange }) => {
+const Pagination = ({ limit, totalItems = 0, onPageChange }) => {
     const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.max(1, Math.ceil(totalItems / limit));
 
     const handlePageChange = useCallback((page) => {
         const numericPage = Number(page);
@@ -14,18 +13,19 @@ const Pagination = ({ totalPages, totalItems, onPageChange }) => {
         }
     }, [totalPages, onPageChange]);
 
-
     const handleInputChange = (e) => {
         const value = parseInt(e.target.value, 10);
-        if (!isNaN(value)) handlePageChange(value);
+        if (!isNaN(value)) {
+            handlePageChange(value);
+        }
     };
 
     useEffect(() => {
-        // скидуємо сторінку на 1, якщо totalPages змінилось (наприклад, після фільтрації)
         if (currentPage > totalPages) {
-            handlePageChange(1);
+            setCurrentPage(1);
+            onPageChange?.(1);
         }
-    }, [currentPage, handlePageChange, totalPages]);
+    }, [totalPages]);
 
     return (
         <div className={css.paginationContainer}>

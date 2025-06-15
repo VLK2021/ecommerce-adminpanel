@@ -6,6 +6,7 @@ import { productActions, productsQueryActions } from "../../../store/index.js";
 import ProductSingleItemComponent from "../ProductSingleItemComponent/ProductSingleItemComponent.jsx";
 import { Pagination } from "../../../ui/Pagination/Pagination.jsx";
 
+
 const ProductsListComponent = () => {
     const dispatch = useDispatch();
     const { products, trigger } = useSelector(store => store.product);
@@ -51,7 +52,7 @@ const ProductsListComponent = () => {
             <div className={css.paginationBlock}>
                 <Pagination
                     totalItems={100}
-                    totalPages={10}
+                    limit={5}
                     onPageChange={(page) => dispatch(productsQueryActions.setPage(page))}
                 />
             </div>
