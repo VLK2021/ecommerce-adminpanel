@@ -1,27 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
 import css from './ProductsListComponent.module.css';
-import { productActions, productsQueryActions } from "../../../store/index.js";
-import ProductSingleItemComponent from "../ProductSingleItemComponent/ProductSingleItemComponent.jsx";
-import { Pagination } from "../../../ui/Pagination/Pagination.jsx";
 
+import { productActions, productsQueryActions } from "../../../store";
+import ProductSingleItemComponent from "../ProductSingleItemComponent/ProductSingleItemComponent";
+import { Pagination } from "../../../ui/Pagination/Pagination";
 
 const ProductsListComponent = () => {
     const dispatch = useDispatch();
-    const { products, trigger } = useSelector(store => store.product);
+    const { products, trigger, total } = useSelector(store => store.product);
     const { page, limit, search, categoryId, sortBy, sortOrder } = useSelector(store => store.productsQuery);
 
     useEffect(() => {
-        dispatch(productActions.getAllProducts({
-            page,
-            limit,
-            search,
-            categoryId,
-            sortBy,
-            sortOrder
-        }));
+        dispatch(productActions.getAllProducts({ page, limit, search, categoryId, sortBy, sortOrder }));
     }, [dispatch, trigger, page, limit, search, categoryId, sortBy, sortOrder]);
+
+
+    console.log(limit);
 
 
     return (
@@ -37,7 +32,7 @@ const ProductsListComponent = () => {
             </div>
 
             <div className={css.productScroll}>
-                {products && products.length > 0 ? (
+                {Array.isArray(products) && products.length > 0 ? (
                     products.map((product) => (
                         <ProductSingleItemComponent
                             key={product.id}
@@ -49,10 +44,11 @@ const ProductsListComponent = () => {
                 )}
             </div>
 
+
             <div className={css.paginationBlock}>
                 <Pagination
-                    totalItems={100}
-                    limit={5}
+                    totalItems={total}
+                    limit={limit}
                     onPageChange={(page) => dispatch(productsQueryActions.setPage(page))}
                 />
             </div>

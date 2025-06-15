@@ -1,23 +1,29 @@
-import {axiosService} from "./axios.service.jsx";
-import {urls} from "../constants/index.js";
+import { axiosService } from "./axios.service";
+import { urls } from "../constants";
 
 
 const productService = {
-    getAllProducts: () => axiosService.get(urls.product)
-        .then(value => value.data),
+    getAllProducts: (params = {}) => {
+        const queryParams = Object.fromEntries(
+            Object.entries(params).filter(([_, v]) => v !== '' && v !== null && v !== undefined)
+        );
 
-    createProduct: (data) => axiosService.post(urls.product, data)
-        .then(value => value.data),
+        return axiosService.get(urls.product, {
+            params: queryParams
+        }).then(res => res.data);
+    },
 
-    updateProduct: (id, data) => axiosService.patch(`${urls.product}/${id}`, data)
-        .then(value => value.data),
+    createProduct: (data) =>
+        axiosService.post(urls.product, data).then(res => res.data),
 
-    deleteProduct: (id) => axiosService.delete(`${urls.product}/${id}`),
+    updateProduct: (id, data) =>
+        axiosService.patch(`${urls.product}/${id}`, data).then(res => res.data),
 
-    getProductById: (id) => axiosService.get(`${urls.product}/${id}`)
-        .then(value => value.data),
+    deleteProduct: (id) =>
+        axiosService.delete(`${urls.product}/${id}`),
+
+    getProductById: (id) =>
+        axiosService.get(`${urls.product}/${id}`).then(res => res.data),
 };
 
-export {
-    productService
-}
+export { productService };

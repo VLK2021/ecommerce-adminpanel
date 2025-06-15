@@ -7,7 +7,7 @@ const initialState = {
     categoryId: '',
     sortBy: '',
     sortOrder: '',
-    sortValue: '',
+    sortValue: '', // <== Додай це, щоб селект тримав значення
 };
 
 const productsQuerySlice = createSlice({
@@ -55,5 +55,5 @@ const productsQueryActions = { ...actions };
 
 export {
     productsQueryReducer,
-    productsQueryActions,
+    productsQueryActions
 };
