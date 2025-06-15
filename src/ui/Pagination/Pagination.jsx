@@ -1,26 +1,31 @@
-import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, {useState, useEffect, useCallback} from 'react';
 
 import css from './Pagination.module.css';
-import {productsQueryActions} from "../../store/index.js";
 
 
-const Pagination = ({ totalPages, totalItems }) => {
-    const dispatch = useDispatch();
-    const currentPage = useSelector(store => store.productsQuery.page);
+const Pagination = ({ totalPages, totalItems, onPageChange }) => {
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const handlePageChange = (page) => {
-        if (page >= 1 && page <= totalPages && page !== currentPage) {
-            dispatch(productsQueryActions.setPage(page));
+    const handlePageChange = useCallback((page) => {
+        const numericPage = Number(page);
+        if (numericPage >= 1 && numericPage <= totalPages) {
+            setCurrentPage(numericPage);
+            onPageChange?.(numericPage);
         }
-    };
+    }, [totalPages, onPageChange]);
+
 
     const handleInputChange = (e) => {
         const value = parseInt(e.target.value, 10);
-        if (!isNaN(value)) {
-            handlePageChange(value);
-        }
+        if (!isNaN(value)) handlePageChange(value);
     };
+
+    useEffect(() => {
+        // скидуємо сторінку на 1, якщо totalPages змінилось (наприклад, після фільтрації)
+        if (currentPage > totalPages) {
+            handlePageChange(1);
+        }
+    }, [currentPage, handlePageChange, totalPages]);
 
     return (
         <div className={css.paginationContainer}>
@@ -32,62 +37,50 @@ const Pagination = ({ totalPages, totalItems }) => {
                 &#60;
             </button>
 
-            {totalPages === 1 ? (
-                <button className={css.activePageButton}>1</button>
-            ) : (
-                <>
-                    <button
-                        className={
-                            currentPage === 1
-                                ? css.activePageButton
-                                : css.pageButton
-                        }
-                        onClick={() => handlePageChange(1)}
-                    >
-                        1
-                    </button>
+            <button
+                className={currentPage === 1 ? css.activePageButton : css.pageButton}
+                onClick={() => handlePageChange(1)}
+            >
+                1
+            </button>
 
-                    {currentPage > 3 && <span className={css.dots}>...</span>}
+            {currentPage > 3 && <span className={css.dots}>...</span>}
 
-                    {currentPage > 2 && (
-                        <button
-                            className={css.pageButton}
-                            onClick={() => handlePageChange(currentPage - 1)}
-                        >
-                            {currentPage - 1}
-                        </button>
-                    )}
-
-                    {currentPage !== 1 && currentPage !== totalPages && (
-                        <button className={css.activePageButton}>
-                            {currentPage}
-                        </button>
-                    )}
-
-                    {currentPage < totalPages - 1 && (
-                        <button
-                            className={css.pageButton}
-                            onClick={() => handlePageChange(currentPage + 1)}
-                        >
-                            {currentPage + 1}
-                        </button>
-                    )}
-
-                    {currentPage < totalPages - 2 && <span className={css.dots}>...</span>}
-
-                    <button
-                        className={
-                            currentPage === totalPages
-                                ? css.activePageButton
-                                : css.pageButton
-                        }
-                        onClick={() => handlePageChange(totalPages)}
-                    >
-                        {totalPages}
-                    </button>
-                </>
+            {currentPage > 2 && (
+                <button
+                    className={css.pageButton}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                >
+                    {currentPage - 1}
+                </button>
             )}
 
+            {currentPage !== 1 && currentPage !== totalPages && (
+                <button
+                    className={css.activePageButton}
+                    onClick={() => handlePageChange(currentPage)}
+                >
+                    {currentPage}
+                </button>
+            )}
+
+            {currentPage < totalPages - 1 && (
+                <button
+                    className={css.pageButton}
+                    onClick={() => handlePageChange(currentPage + 1)}
+                >
+                    {currentPage + 1}
+                </button>
+            )}
+
+            {currentPage < totalPages - 2 && <span className={css.dots}>...</span>}
+
+            <button
+                className={currentPage === totalPages ? css.activePageButton : css.pageButton}
+                onClick={() => handlePageChange(totalPages)}
+            >
+                {totalPages}
+            </button>
 
             <button
                 className={css.arrowButton}

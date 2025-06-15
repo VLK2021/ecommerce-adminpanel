@@ -2,17 +2,26 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import css from './ProductsListComponent.module.css';
-import { productActions } from "../../../store/index.js";
+import { productActions, productsQueryActions } from "../../../store/index.js";
 import ProductSingleItemComponent from "../ProductSingleItemComponent/ProductSingleItemComponent.jsx";
 import { Pagination } from "../../../ui/Pagination/Pagination.jsx";
 
 const ProductsListComponent = () => {
     const dispatch = useDispatch();
     const { products, trigger } = useSelector(store => store.product);
+    const { page, limit, search, categoryId, sortBy, sortOrder } = useSelector(store => store.productsQuery);
 
     useEffect(() => {
-        dispatch(productActions.getAllProducts());
-    }, [dispatch, trigger]);
+        dispatch(productActions.getAllProducts({
+            page,
+            limit,
+            search,
+            categoryId,
+            sortBy,
+            sortOrder
+        }));
+    }, [dispatch, trigger, page, limit, search, categoryId, sortBy, sortOrder]);
+
 
     return (
         <div className={css.pageContent}>
@@ -40,7 +49,11 @@ const ProductsListComponent = () => {
             </div>
 
             <div className={css.paginationBlock}>
-                <Pagination totalItems={100} totalPages={10} />
+                <Pagination
+                    totalItems={100}
+                    totalPages={10}
+                    onPageChange={(page) => dispatch(productsQueryActions.setPage(page))}
+                />
             </div>
         </div>
     );
