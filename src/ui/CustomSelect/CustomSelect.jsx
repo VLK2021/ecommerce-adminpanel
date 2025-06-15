@@ -1,17 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown, FiX } from 'react-icons/fi';
 
 import css from './CustomSelect.module.css';
-
 
 const CustomSelect = ({
                           value,
                           onChangeCallback,
                           options = [],
                           placeholder = 'Оберіть значення',
-                          name
                       }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     const ref = useRef(null);
 
     const toggleOpen = () => setIsOpen(prev => !prev);
@@ -20,6 +19,12 @@ const CustomSelect = ({
         if (val !== value) {
             onChangeCallback?.(val);
         }
+        setIsOpen(false);
+    };
+
+    const handleClear = (e) => {
+        e.stopPropagation();
+        onChangeCallback?.('');
         setIsOpen(false);
     };
 
@@ -38,11 +43,27 @@ const CustomSelect = ({
 
     return (
         <div className={css.selectContainer} ref={ref}>
-            <div className={css.selectBox} onClick={toggleOpen}>
+            <div
+                className={css.selectBox}
+                onClick={toggleOpen}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
                 <span className={value ? css.selectedText : css.placeholder}>
                     {selectedLabel || placeholder}
                 </span>
-                <FiChevronDown className={`${css.icon} ${isOpen ? css.iconOpen : ''}`} />
+
+                <div className={css.icons}>
+                    {value && isHovered && (
+                        <FiX
+                            className={`${css.icon} ${css.clearIcon}`}
+                            onClick={handleClear}
+                        />
+                    )}
+                    <FiChevronDown
+                        className={`${css.icon} ${isOpen ? css.iconOpen : ''}`}
+                    />
+                </div>
             </div>
 
             {isOpen && (

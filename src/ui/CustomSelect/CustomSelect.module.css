@@ -73,8 +73,19 @@
     color: var(--text-color);
 }
 
-.activeOption {
-    background-color: var(--primary-light);
-    font-weight: 500;
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
+.clearIcon {
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.clearIcon:hover {
+    color: var(--primary-color);
+}

@@ -16,7 +16,8 @@ const sortOptionsProducts = [
 const ProductMenuComponent = () => {
     const dispatch = useDispatch();
     const { categories } = useSelector(store => store.category);
-    const { sortValue, categoryId } = useSelector(store => store.productsQuery);
+    const { sortValue, categoryId} = useSelector(store => store.productsQuery);
+
 
     useEffect(() => {
         dispatch(categoryActions.getAllCategories());
@@ -30,6 +31,7 @@ const ProductMenuComponent = () => {
         dispatch(productActions.openCreateProductModal());
     };
 
+
     return (
         <div className={css.wrap}>
             <ButtonCreate onClick={openCreateProductModal} />
@@ -41,7 +43,6 @@ const ProductMenuComponent = () => {
             />
 
             <CustomSelect
-                name={"sort"}
                 value={sortValue}
                 options={sortOptionsProducts}
                 placeholder={"Сортувати за"}
@@ -49,7 +50,6 @@ const ProductMenuComponent = () => {
             />
 
             <CustomSelect
-                name={"category"}
                 value={categoryId}
                 placeholder={"Вибір категорії"}
                 options={categories.map((cat) => ({
