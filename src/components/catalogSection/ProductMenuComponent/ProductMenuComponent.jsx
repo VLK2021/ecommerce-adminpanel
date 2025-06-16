@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import css from './ProductMenuComponent.module.css';
-import { ButtonCreate, CustomSelect, SearchInput } from "../../../ui/index.js";
-import { productActions, productsQueryActions } from "../../../store/index.js";
-import { categoryActions } from "../../../store/slices/category.slice.jsx";
+import { ButtonAll, ButtonCreate, CustomSelect, SearchInput } from "../../../ui";
+import { productActions, productsQueryActions } from "../../../store";
+import { categoryActions } from "../../../store/slices/category.slice";
 
 const sortOptionsProducts = [
     { value: 'name_asc', label: 'Назва (А-Я)' },
@@ -16,47 +16,60 @@ const sortOptionsProducts = [
 const ProductMenuComponent = () => {
     const dispatch = useDispatch();
     const { categories } = useSelector(store => store.category);
-    const { sortValue, categoryId} = useSelector(store => store.productsQuery);
-
+    const { sortValue, categoryId, search } = useSelector(store => store.productsQuery);
 
     useEffect(() => {
         dispatch(categoryActions.getAllCategories());
     }, [dispatch]);
 
-    const handleSearchProducts = (query) => {
-        dispatch(productsQueryActions.setSearch(query));
+    const handleSearchChange = (e) => {
+        dispatch(productsQueryActions.setSearch(e.target.value));
+    };
+
+    const handleSearchDebounced = (value) => {
+        dispatch(productsQueryActions.setSearch(value));
+    };
+
+    const handleReset = () => {
+        dispatch(productsQueryActions.resetFilters());
     };
 
     const openCreateProductModal = () => {
         dispatch(productActions.openCreateProductModal());
     };
 
-
     return (
         <div className={css.wrap}>
             <ButtonCreate onClick={openCreateProductModal} />
 
             <SearchInput
-                name={"productSearch"}
-                onDebouncedSearch={handleSearchProducts}
-                placeholder={'Пошук товарів'}
+                name="productSearch"
+                value={search}
+                onChange={handleSearchChange}
+                onDebouncedSearch={handleSearchDebounced}
+                placeholder="Пошук товарів"
             />
 
             <CustomSelect
                 value={sortValue}
                 options={sortOptionsProducts}
-                placeholder={"Сортувати за"}
+                placeholder="Сортувати за"
                 onChangeCallback={(value) => dispatch(productsQueryActions.setSortBy(value))}
             />
 
             <CustomSelect
                 value={categoryId}
-                placeholder={"Вибір категорії"}
+                placeholder="Вибір категорії"
                 options={categories.map((cat) => ({
                     value: cat.id,
                     label: cat.name,
                 }))}
                 onChangeCallback={(value) => dispatch(productsQueryActions.setCategoryId(value))}
+            />
+
+            <ButtonAll
+                titleButton="Скинути фільтри"
+                onClick={handleReset}
             />
         </div>
     );

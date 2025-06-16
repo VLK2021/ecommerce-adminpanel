@@ -1,62 +1,48 @@
-import React, { useEffect } from 'react'
-import { useForm, Controller } from 'react-hook-form'
-import { FiSearch } from 'react-icons/fi'
+import React, { useEffect, useState } from 'react';
+import { FiSearch } from 'react-icons/fi';
 
-import css from './SearchInput.module.css'
-import { useDebounce } from '../../hooks'
-
+import css from './SearchInput.module.css';
+import { useDebounce } from '../../hooks';
 
 const SearchInput = ({
-                         name = '',
-                         placeholder = '',
-                         defaultValue = '',
+                         value = '',
                          onDebouncedSearch,
-                         debounceDelay = 200,
+                         onChange = () => {},
+                         placeholder = '',
+                         debounceDelay = 300,
+                         name = '',
                      }) => {
-    const { control, watch } = useForm({
-        defaultValues: { [name]: defaultValue },
-    })
-
-    const value = watch(name)
-    const debouncedValue = useDebounce(value, debounceDelay)
+    const [internalValue, setInternalValue] = useState(value);
+    const debouncedValue = useDebounce(internalValue, debounceDelay);
 
     useEffect(() => {
-        if (debouncedValue !== undefined) {
-            onDebouncedSearch?.(debouncedValue)
-        }
-    }, [debouncedValue, onDebouncedSearch])
+        setInternalValue(value);
+    }, [value]);
 
+    useEffect(() => {
+        onDebouncedSearch?.(debouncedValue);
+    }, [debouncedValue]);
+
+    const handleChange = (e) => {
+        const val = e.target.value;
+        setInternalValue(val);
+        onChange(e);
+    };
 
     return (
-        <Controller
-            name={name}
-            control={control}
-            render={({ field }) => (
-                <div className={css.wrapper}>
-                    <FiSearch className={css.icon} />
-                    <input
-                        type="text"
-                        autoComplete="off"
-                        placeholder={placeholder}
-                        className={css.input}
-                        {...field}
-                    />
-                </div>
-            )}
-        />
-    )
-}
+        <div className={css.wrapper}>
+            <FiSearch className={css.icon} />
+            <input
+                type="text"
+                name={name}
+                value={internalValue}
+                onChange={handleChange}
+                autoComplete="off"
+                placeholder={placeholder}
+                className={css.input}
+            />
+        </div>
+    );
+};
 
-export { SearchInput }
-
-
-//приклад як реалізувати з тим сраним квері
-// export const fetchProductsBySearch = createAsyncThunk(
-//     'products/fetchBySearch',
-//     async (query) => {
-//         const response = await axios.get('/api/products/search', {
-//             params: { q: query },
-//         })
-//         return response.data
-//     }
-// )
+export { SearchInput };
