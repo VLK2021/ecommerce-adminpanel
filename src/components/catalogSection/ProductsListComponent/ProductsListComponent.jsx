@@ -16,9 +16,6 @@ const ProductsListComponent = () => {
     }, [dispatch, trigger, page, limit, search, categoryId, sortBy, sortOrder]);
 
 
-    console.log(limit);
-
-
     return (
         <div className={css.pageContent}>
             <div className={css.header}>

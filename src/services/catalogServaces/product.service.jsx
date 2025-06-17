@@ -1,5 +1,5 @@
-import { axiosService } from "./axios.service";
-import { urls } from "../constants";
+import { axiosService } from "../axios.service.jsx";
+import { urls } from "../../constants/index.js";
 
 
 const productService = {

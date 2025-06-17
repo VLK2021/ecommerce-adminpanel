@@ -11,6 +11,7 @@ const urls = {
         attribute: '/attributes',
     },
     product: '/products',
+    warehouse: '/warehouses',
 }
 
 export {

@@ -5,6 +5,8 @@ import {categoryReducer} from "./slices/category.slice.jsx";
 import {attributeReducer} from "./slices/attributeSlice.jsx";
 import {productReducer} from "./slices/productSlice.jsx";
 import {productsQueryReducer} from "./slices/productsQuerySlice.jsx";
+import {warehouseReducer} from "./slices/warehouseSlice.jsx";
+import {warehousesQueryReducer} from "./slices/warehousesQuerySlice.jsx";
 
 
 
@@ -14,7 +16,9 @@ const store = configureStore({
         category: categoryReducer,
         attribute: attributeReducer,
         product: productReducer,
-        productsQuery: productsQueryReducer
+        productsQuery: productsQueryReducer,
+        warehouse: warehouseReducer,
+        warehousesQuery: warehousesQueryReducer,
     }
 });
 

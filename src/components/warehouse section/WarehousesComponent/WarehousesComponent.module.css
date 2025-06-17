@@ -1,0 +1,22 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.menuBlock {
+    width: 100%;
+    height: 60px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--bg-color-hr);
+}
+
+.contentBlock {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    border-bottom: 1px solid var(--bg-color-hr);
+}
+
+
