@@ -1,12 +1,17 @@
 import React from 'react';
 import {ToastContainer} from "react-toastify";
+import {useSelector} from "react-redux";
 
 import css from './WarehousesComponent.module.css';
 import {WarehousesMenuComponent} from "../WarehousesMenuComponent/WarehousesMenuComponent.jsx";
 import WarehousesListComponent from "../WarehousesListComponent/WarhousesListComponent.jsx";
+import {WarehouseCreateModal} from "../warehouseModals/WarehouseCreateModal/WarehouseCreateModal.jsx";
 
 
 const WarehousesComponent = () => {
+    const {isOpenCreateModal, isOpenUpdateModal, isOpenDetailsModal} = useSelector(store => store.warehouse);
+
+
     return (
         <div className={css.wrap}>
             <ToastContainer/>
@@ -18,6 +23,10 @@ const WarehousesComponent = () => {
             <div className={css.contentBlock}>
                 <WarehousesListComponent/>
             </div>
+
+            {isOpenCreateModal && <WarehouseCreateModal/>}
+            {isOpenUpdateModal && ''}
+            {isOpenDetailsModal && ''}
         </div>
     );
 };

@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import css from './WarehousesListComponent.module.css';
 import {warehouseActions} from "../../../store/index.js";
+import WarehouseSingleItemComponent from "../WarehouseSingleItemComponent/WarehouseSingleItemComponent.jsx";
 
 
 const WarehousesListComponent = () => {
@@ -29,11 +30,10 @@ const WarehousesListComponent = () => {
             <div className={css.warehousesScroll}>
                 {Array.isArray(warehouses) && warehouses.length > 0 ? (
                     warehouses.map((product) => (
-                        <div key={product.id}>{product.name}</div>
-                        // <ProductSingleItemComponent
-                        //     key={product.id}
-                        //     product={product}
-                        // />
+                        <WarehouseSingleItemComponent
+                            key={product.id}
+                            product={product}
+                        />
                     ))
                 ) : (
                     <div className={css.noProducts}>Немає товарів</div>

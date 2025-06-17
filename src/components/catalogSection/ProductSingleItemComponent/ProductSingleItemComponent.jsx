@@ -10,8 +10,6 @@ const ProductSingleItemComponent = ({product}) => {
     const dispatch = useDispatch();
     const {id, name, price, stock, category, isActive, images} = product;
 
-    console.log(product);
-
     const handleClick = (e) => {
         e.preventDefault();
 

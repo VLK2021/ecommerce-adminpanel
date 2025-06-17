@@ -31,6 +31,7 @@ const WarehousesMenuComponent = () => {
     }, [search, sortBy, sortOrder, dispatch]);
 
     const openCreateWarehouseModal = () => {
+        dispatch(warehouseActions.openCreateWarehouseModal());
     };
 
     const handleSearchWarehousesChange = (e) => {
