@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import css from './WarehousesComponent.module.css';
 import {WarehousesMenuComponent} from "../WarehousesMenuComponent/WarehousesMenuComponent.jsx";
 import WarehousesListComponent from "../WarehousesListComponent/WarhousesListComponent.jsx";
-import {WarehouseCreateModal} from "../warehouseModals/WarehouseCreateModal/WarehouseCreateModal.jsx";
+import {WarehouseCreateModal, WarehouseUpdateModal} from "../warehouseModals/index.js";
 
 
 const WarehousesComponent = () => {
@@ -25,7 +25,7 @@ const WarehousesComponent = () => {
             </div>
 
             {isOpenCreateModal && <WarehouseCreateModal/>}
-            {isOpenUpdateModal && ''}
+            {isOpenUpdateModal && <WarehouseUpdateModal/>}
             {isOpenDetailsModal && ''}
         </div>
     );

@@ -14,6 +14,7 @@ const WarehouseSingleItemComponent = ({product}) => {
         e.preventDefault();
 
         dispatch(warehouseActions.selectWarehouse(id));
+        dispatch(warehouseActions.openUpdateWarehouseModal());
     };
 
     const showInformation = (e) => {

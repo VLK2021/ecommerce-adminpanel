@@ -1,50 +1,89 @@
-import React from 'react';
-import { useForm } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
-import { useDispatch } from "react-redux";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
 
-import css from './WarehouseCreateModal.module.css';
-import { ButtonCancel, ButtonClose, ButtonOk } from "../../../../ui";
-import { warehouseActions } from "../../../../store";
+import css from './WarehouseUpdateModal.module.css';
+import {ButtonCancel, ButtonClose, ButtonOk} from "../../../../ui/index.js";
+import {warehouseActions} from "../../../../store/index.js";
 import {warehouseService} from "../../../../services/warehouseServices/index.js";
-import {warehouseCreateSchema} from "../../../../validators/index.js";
 
 
-const WarehouseCreateModal = () => {
+const WarehouseUpdateModal = () => {
     const dispatch = useDispatch();
+    const {selectedWarehouseId} = useSelector(store => store.warehouse);
+
     const {
         handleSubmit,
         register,
-        formState: { errors }
+        reset,
+        formState: {errors},
     } = useForm({
-        resolver: joiResolver(warehouseCreateSchema),
-        mode: "onTouched"
+        defaultValues: {
+            name: '',
+            address: '',
+            city: '',
+            phone: '',
+            description: '',
+            isActive: false,
+        }
     });
 
-    const closeCreateWarehouse = () => {
-        dispatch(warehouseActions.closeCreateWarehouseModal());
-    };
+    const closeUpdateWarehouse = () => {
+        dispatch(warehouseActions.closeUpdateWarehouseModal());
+    }
+
+    useEffect(() => {
+        const fetchWarehouseById = async () => {
+            try {
+                const warehouse = await warehouseService.getWarehouseById(selectedWarehouseId);
+
+                reset({
+                    name: warehouse.name,
+                    address: warehouse.address,
+                    city: warehouse.city,
+                    phone: warehouse.phone,
+                    description: warehouse.description,
+                    isActive: warehouse.isActive,
+                });
+
+
+            } catch (e) {
+                console.error(e);
+                toast.error("Не вдалося завантажити дані");
+            }
+        }
+        fetchWarehouseById();
+    }, [reset, selectedWarehouseId]);
 
     const onSubmit = async (data) => {
         try {
-            await warehouseService.createWarehouse(data);
-            dispatch(warehouseActions.changeTrigger());
+            const payload = {
+                name: data.name,
+                address: data.address,
+                city: data.city,
+                phone: data.phone,
+                description: data.description,
+                isActive: data.isActive,
+            };
 
-            toast.success('Склад успішно створений!');
-            dispatch(warehouseActions.closeCreateWarehouseModal());
-        }catch (err) {
-            console.error(err);
-            toast.error('Помилка створення');
+            await warehouseService.updateWarehouse(selectedWarehouseId, payload);
+            dispatch(warehouseActions.changeTrigger());
+            closeUpdateWarehouse();
+            toast.success('Склад оновлено');
+        } catch (e) {
+            console.error(e);
+            toast.error("Помилка при оновленні");
         }
     };
+
 
     return (
         <div className={css.overlay}>
             <div className={css.modal}>
                 <div className={css.header}>
-                    <div className={css.title}>Створення складу</div>
-                    <ButtonClose onClick={closeCreateWarehouse} />
+                    <div className={css.title}>Оновлення складу</div>
+                    <ButtonClose onClick={closeUpdateWarehouse}/>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
@@ -91,7 +130,7 @@ const WarehouseCreateModal = () => {
                     <div className={css.row}>
                         <label className={css.switchLabel}>
                             <span>Активний</span>
-                            <input type="checkbox" {...register("isActive")} className={css.toggle} />
+                            <input type="checkbox" {...register("isActive")} className={css.toggle}/>
                             <span className={css.slider}></span>
                         </label>
                     </div>
@@ -106,8 +145,8 @@ const WarehouseCreateModal = () => {
                     </div>
 
                     <div className={css.buttonsBlock}>
-                        <ButtonCancel onClick={closeCreateWarehouse} />
-                        <ButtonOk />
+                        <ButtonCancel onClick={closeUpdateWarehouse}/>
+                        <ButtonOk/>
                     </div>
                 </form>
             </div>
@@ -115,4 +154,4 @@ const WarehouseCreateModal = () => {
     );
 };
 
-export { WarehouseCreateModal };
+export {WarehouseUpdateModal};
