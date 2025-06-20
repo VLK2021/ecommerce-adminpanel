@@ -2,11 +2,13 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
+import {joiResolver} from "@hookform/resolvers/joi";
 
 import css from './WarehouseUpdateModal.module.css';
 import {ButtonCancel, ButtonClose, ButtonOk} from "../../../../ui/index.js";
 import {warehouseActions} from "../../../../store/index.js";
 import {warehouseService} from "../../../../services/warehouseServices/index.js";
+import {warehouseUpdateSchema} from "../../../../validators/index.js";
 
 
 const WarehouseUpdateModal = () => {
@@ -19,6 +21,7 @@ const WarehouseUpdateModal = () => {
         reset,
         formState: {errors},
     } = useForm({
+        resolver: joiResolver(warehouseUpdateSchema),
         defaultValues: {
             name: '',
             address: '',
