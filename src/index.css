@@ -80,3 +80,7 @@
 
   background: linear-gradient(135deg, #1a1a22, #262631);
 }
+
+a {
+  text-decoration: none;
+}

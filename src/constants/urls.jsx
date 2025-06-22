@@ -12,6 +12,7 @@ const urls = {
     },
     product: '/products',
     warehouse: '/warehouses',
+    inventory: '/inventory',
 }
 
 export {

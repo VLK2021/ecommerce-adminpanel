@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import css from "./WarehouseSingleItemComponent.module.css";
 import {ButtonAll, ButtonClose} from "../../../ui/index.js";
 import {warehouseActions} from "../../../store/index.js";
+import {NavLink} from "react-router-dom";
 
 
 const WarehouseSingleItemComponent = ({product}) => {
@@ -30,7 +31,7 @@ const WarehouseSingleItemComponent = ({product}) => {
 
 
     return (
-        <div className={css.wrap}  onClick={handleClick}>
+        <div className={css.wrap} onClick={handleClick}>
             <div className={css.name}>{name}</div>
             <div className={css.address}>{address}</div>
             <div className={css.phone}>{phone}</div>
@@ -39,10 +40,12 @@ const WarehouseSingleItemComponent = ({product}) => {
                 {isActive ? 'активний' : 'неактивний'}
             </div>
             <div className={css.action}>
-                <ButtonAll
-                    titleButton={'інфо'}
-                    onClick={showInformation}
-                />
+                <NavLink to={`/stocks/${id}`.toString()}>
+                    <ButtonAll
+                        titleButton={'Залишки'}
+                        onClick={showInformation}
+                    />
+                </NavLink>
 
                 <ButtonClose onClick={deleteWarehouse}/>
             </div>

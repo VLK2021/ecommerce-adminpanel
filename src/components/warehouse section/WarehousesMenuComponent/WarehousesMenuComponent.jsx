@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import css from './WarehousesMenuComponent.module.css';
 import {
@@ -12,8 +12,8 @@ import {warehouseActions, warehousesQueryActions} from "../../../store/index.js"
 
 
 const sortOptionsWarehouses = [
-    { value: 'name_asc', label: 'Назва (А-Я)' },
-    { value: 'name_desc', label: 'Назва (Я-А)' },
+    {value: 'name_asc', label: 'Назва (А-Я)'},
+    {value: 'name_desc', label: 'Назва (Я-А)'},
 ];
 
 const WarehousesMenuComponent = () => {
@@ -26,7 +26,7 @@ const WarehousesMenuComponent = () => {
     } = useSelector(store => store.warehousesQuery);
 
     useEffect(() => {
-        const params = { search, sortBy, sortOrder };
+        const params = {search, sortBy, sortOrder};
         dispatch(warehouseActions.getAllWarehouses(params));
     }, [search, sortBy, sortOrder, dispatch]);
 
@@ -50,10 +50,14 @@ const WarehousesMenuComponent = () => {
         dispatch(warehousesQueryActions.resetFilters());
     };
 
+    const handleAddProductsOnWarehouse = () => {
+       dispatch(warehouseActions.openProductsAddOnWarehouseModal());
+    };
+
 
     return (
         <div className={css.wrap}>
-            <ButtonCreate onClick={openCreateWarehouseModal} />
+            <ButtonCreate onClick={openCreateWarehouseModal}/>
 
             <SearchInput
                 name="warehouseSearch"
@@ -74,8 +78,13 @@ const WarehousesMenuComponent = () => {
                 titleButton="Скинути фільтри"
                 onClick={handleReset}
             />
+
+            <ButtonAll
+                titleButton="Прихід товару"
+                onClick={handleAddProductsOnWarehouse}
+            />
         </div>
     );
 };
 
-export { WarehousesMenuComponent };
+export {WarehousesMenuComponent};

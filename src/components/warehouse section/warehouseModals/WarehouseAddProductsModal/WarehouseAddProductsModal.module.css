@@ -1,0 +1,134 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    width: 30%;
+    min-height: 33vh;
+    background: var(--bg-color);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    animation: fadeIn 0.3s ease;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color, #333);
+}
+
+.input:focus {
+    border-color: var(--primary-color, #409eff);
+}
+
+.errorInput {
+    border-color: #ff4d4f;
+}
+
+.errorText {
+    color: #ff4d4f;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.productDropdown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 99;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    max-height: 210px;
+    overflow-y: auto;
+    margin-top: 2px;
+    box-shadow: 0 4px 20px 0 #00000013;
+    padding: 0;
+    list-style: none;
+}
+
+.productDropdownItem {
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: background 0.12s;
+    font-size: 1rem;
+}
+
+.productDropdownItem:hover {
+    background: #f2f6ff;
+}
+
+.productLoading {
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    margin-top: 2px;
+    font-size: 0.95rem;
+    color: #9191b5;
+    background: #fff;
+    padding: 2px 8px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px #0001;
+    z-index: 100;
+}
+
+.buttonsBlock {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+

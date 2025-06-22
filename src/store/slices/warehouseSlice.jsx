@@ -26,6 +26,7 @@ const initialState = {
     isOpenCreateModal: false,
     isOpenUpdateModal: false,
     isOpenDetailsModal: false,
+    isOpenProductsAddOnWarehouseModal: false,
     selectedWarehouseId: null,
 };
 
@@ -43,6 +44,10 @@ const warehouseSlice = createSlice({
 
         openWarehouseDetailsModal: (state) => { state.isOpenDetailsModal = true; },
         closeWarehouseDetailsModal: (state) => { state.isOpenDetailsModal = false; },
+
+        openProductsAddOnWarehouseModal: (state) => { state.isOpenProductsAddOnWarehouseModal = true; },
+        closeProductsAddOnWarehouseModal: (state) => { state.isOpenProductsAddOnWarehouseModal = false; },
+
 
         selectWarehouse: (state, action) => { state.selectedWarehouseId = action.payload; },
         resetSelectedWarehouse: (state) => { state.selectedWarehouseId = null; },

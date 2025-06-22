@@ -5,11 +5,11 @@ import {useSelector} from "react-redux";
 import css from './WarehousesComponent.module.css';
 import {WarehousesMenuComponent} from "../WarehousesMenuComponent/WarehousesMenuComponent.jsx";
 import WarehousesListComponent from "../WarehousesListComponent/WarhousesListComponent.jsx";
-import {WarehouseCreateModal, WarehouseUpdateModal} from "../warehouseModals/index.js";
+import {WarehouseAddProductsModal, WarehouseCreateModal, WarehouseUpdateModal} from "../warehouseModals/index.js";
 
 
 const WarehousesComponent = () => {
-    const {isOpenCreateModal, isOpenUpdateModal, isOpenDetailsModal} = useSelector(store => store.warehouse);
+    const {isOpenCreateModal, isOpenUpdateModal, isOpenProductsAddOnWarehouseModal} = useSelector(store => store.warehouse);
 
 
     return (
@@ -26,7 +26,7 @@ const WarehousesComponent = () => {
 
             {isOpenCreateModal && <WarehouseCreateModal/>}
             {isOpenUpdateModal && <WarehouseUpdateModal/>}
-            {isOpenDetailsModal && ''}
+            {isOpenProductsAddOnWarehouseModal && <WarehouseAddProductsModal/>}
         </div>
     );
 };

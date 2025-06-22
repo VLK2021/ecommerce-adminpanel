@@ -18,7 +18,9 @@ import {
     CatalogCategoryComponent,
     CatalogProductsComponent
 } from "./components/catalogSection/index.js";
-import {WarehousesComponent} from "./components/warehouse section/index.js";
+import {WarehousesComponent, WarehousesInventoryComponent} from "./components/warehouse section/index.js";
+import WarehouseSingleInventoryComponent
+    from "./components/warehouse section/WarehouseSingleInventoryComponent/WarehouseSingleInventoryComponent.jsx";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +52,8 @@ const router = createBrowserRouter([
                     {path: '/stocks', element: <StocksPage/>, children: [
                             {index: true, element: <Navigate to={'/stocks/warehouses'}/>},
                             {path: 'warehouses', element: <WarehousesComponent/>},
+                            {path: 'inventory', element: <WarehousesInventoryComponent/>},
+                            {path: ':id', element: <WarehouseSingleInventoryComponent/>},
                         ]},
                     {path: '/shipping', element: <ShippingPage/>, children: []},
                     {path: '/payments', element: <PaymentsPage/>, children: []},
