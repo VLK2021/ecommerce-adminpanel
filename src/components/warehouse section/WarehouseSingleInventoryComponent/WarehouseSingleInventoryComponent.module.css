@@ -1,3 +1,90 @@
 .wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     width: 100%;
 }
+
+.menuBlock {
+    width: 100%;
+    height: 60px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--bg-color-hr);
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--text-color);
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.contentBlock {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    border-bottom: 1px solid var(--bg-color-hr);
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    height: 6%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--el-color-primary);
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text-color);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.header > div {
+    padding: 4px 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.name, .price, .category, .current, .status {
+    border-right: 1px solid var(--el-color-primary);
+}
+
+.name { width: 30%; }
+.price { width: 15%; }
+.category { width: 15%; }
+.current { width: 10%; }
+.status { width: 10%; }
+.action {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.productScroll {
+    height: 87%;
+    overflow-y: auto;
+    width: 100%;
+    min-height: 0;
+}
+
+.noProducts {
+    width: 100%;
+    text-align: center;
+    padding: 40px 0;
+    color: var(--el-color-info);
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+

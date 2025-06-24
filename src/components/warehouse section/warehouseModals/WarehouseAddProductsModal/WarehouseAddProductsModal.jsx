@@ -16,6 +16,7 @@ const WarehouseAddProductsModal = () => {
     const {warehouses} = useSelector(store => store.warehouse);
 
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedWarehouse, setSelectedWarehouse] = useState('');
     const [productOptions, setProductOptions] = useState([]);
     const [productDropdownOpen, setProductDropdownOpen] = useState(false);
     const [loadingProducts, setLoadingProducts] = useState(false);
@@ -65,7 +66,8 @@ const WarehouseAddProductsModal = () => {
     }, [dispatch]);
 
     const handleSelectWarehouse = useCallback((value) => {
-        setValue('warehouseId', value, {shouldValidate: true});
+        setSelectedWarehouse(value);
+        setValue('warehouseId', value, { shouldValidate: true });
     }, [setValue]);
 
     const handleSearchTermChange = useCallback((e) => {
@@ -114,8 +116,8 @@ const WarehouseAddProductsModal = () => {
                     <div className={css.inputGroup}>
                         <label className={css.label}>Вибрати склад</label>
                         <CustomSelect
-                            value={''}
-                            options={warehouses.map(item => ({label: item.name, value: item.id}))}
+                            value={selectedWarehouse}
+                            options={warehouses.map(item => ({ label: item.name, value: item.id }))}
                             placeholder="склад"
                             onChangeCallback={handleSelectWarehouse}
                         />

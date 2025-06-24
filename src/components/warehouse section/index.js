@@ -5,3 +5,5 @@ export * from './WarehousesListComponent/WarhousesListComponent.jsx';
 export * from './WarehouseSingleItemComponent/WarehouseSingleItemComponent.jsx';
 export * from './WarehousesInventoryComponent/WarehousesInventoryComponent.jsx';
 export * from './WarehouseSingleInventoryComponent/WarehouseSingleInventoryComponent.jsx';
+export * from './SingleInventoryMenuComponent/SingleInventoryMenuComponent.jsx';
+export * from './SingleInventoryItemComponent/SingleInventoryItemComponent.jsx';
