@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import css from './SingleInventoryMenuComponent.module.css';
 import {ButtonAll, CustomSelect, SearchInput} from "../../../ui/index.js";
-import {inventoryQueryActions, productsQueryActions} from "../../../store/index.js";
+import {inventoryQueryActions} from "../../../store/index.js";
 import {categoryActions} from "../../../store/slices/category.slice.jsx";
 
 
