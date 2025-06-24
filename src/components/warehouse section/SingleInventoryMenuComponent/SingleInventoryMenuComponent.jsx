@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import css from './SingleInventoryMenuComponent.module.css';
 import {ButtonAll, CustomSelect, SearchInput} from "../../../ui/index.js";
-import {productsQueryActions} from "../../../store/index.js";
+import {inventoryQueryActions, productsQueryActions} from "../../../store/index.js";
 import {categoryActions} from "../../../store/slices/category.slice.jsx";
 
 
@@ -19,26 +19,19 @@ const SingleInventoryMenuComponent = () => {
     const dispatch = useDispatch();
 
     const {categories} = useSelector(store => store.category);
-//тут потрібен кастомний слайс для сортування продуктів по складу напевно а це просто приклад
+
     const {
-        categoryId,
         search,
+        categoryId,
         sortValue,
-        sortBy,
-        sortOrder,
-    } = useSelector(store => store.productsQuery);
+    } = useSelector(store => store.inventoryQuery);
 
     useEffect(() => {
         dispatch(categoryActions.getAllCategories());
     }, [dispatch]);
 
-    useEffect(() => {
-        const params = {search, sortBy, sortOrder};
-        console.log(params);
-    }, [search, sortBy, sortValue, dispatch, sortOrder]);
-
     const handleSearchWarehousesChange = (e) => {
-        console.log(e.target.value);
+        dispatch(inventoryQueryActions.setSearch(e.target.value));
     };
 
     const handleSearchWarehousesDebounced = (value) => {
@@ -64,7 +57,7 @@ const SingleInventoryMenuComponent = () => {
                 value={sortValue}
                 options={sortOptionsProducts}
                 placeholder="Сортувати за"
-                onChangeCallback={(value) => dispatch(productsQueryActions.setSortBy(value))}
+                onChangeCallback={(value) => dispatch(inventoryQueryActions.setSortBy(value))}
             />
 
             <CustomSelect
@@ -74,7 +67,7 @@ const SingleInventoryMenuComponent = () => {
                     value: cat.id,
                     label: cat.name,
                 }))}
-                onChangeCallback={(value) => dispatch(productsQueryActions.setCategoryId(value))}
+                onChangeCallback={(value) => dispatch(inventoryQueryActions.setCategoryId(value))}
             />
 
             <ButtonAll

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
 
 import css from './WarehouseSingleInventoryComponent.module.css';
 import { inventoryService, warehouseService } from "../../../services/warehouseServices";
@@ -12,35 +13,36 @@ import { DescriptionSingleInventoryItemOnWarehouse } from "../warehouseModals";
 const WarehouseSingleInventoryComponent = () => {
     const { id } = useParams();
 
+
+    const inventoryQuery = useSelector(store => store.inventoryQuery);
+
+
     const [infoArray, setInfoArray] = useState([]);
     const [warehouseSingleName, setWarehouseSingleName] = useState(null);
-
-    // Стан для модалки: об'єкт з description і name
     const [descriptionModalData, setDescriptionModalData] = useState(null);
 
     useEffect(() => {
         const fetchDataInventory = async () => {
             try {
                 const warehouseResponse = await warehouseService.getWarehouseById(id);
-                const response = await inventoryService.getAllProductsOnWarehouseById(id);
+                const response = await inventoryService.getAllProductsOnWarehouseById(id, inventoryQuery);
+
                 setWarehouseSingleName(warehouseResponse);
-                setInfoArray(response);
+                setInfoArray(response.items);
             } catch (e) {
                 console.error(e);
                 toast.error('Помилка створення');
+
                 setWarehouseSingleName(null);
                 setInfoArray([]);
             }
         }
         fetchDataInventory();
-    }, [id]);
+    }, [id, inventoryQuery]);
 
-    // Відкриває модалку й передає дані про товар
     const handleShowDescription = (description, productName) => {
         setDescriptionModalData({ description, productName });
     };
-
-    // Закриває модалку
     const handleCloseDescription = () => {
         setDescriptionModalData(null);
     };
@@ -61,7 +63,6 @@ const WarehouseSingleInventoryComponent = () => {
                     <div className={css.status}>Статус</div>
                     <div className={css.action}>Дія</div>
                 </div>
-
                 <div className={css.productScroll}>
                     {Array.isArray(infoArray) && infoArray.length > 0 ? (
                         infoArray.map((product) => (

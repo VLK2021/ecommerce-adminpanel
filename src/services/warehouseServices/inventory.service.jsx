@@ -6,8 +6,10 @@ const inventoryService = {
     create: (data) => axiosService.post(urls.inventory, data)
         .then(value => value.data),
 
-    getAllProductsOnWarehouseById: (id) => axiosService.get(`${urls.inventory}/warehouse/${id}`)
-        .then(value => value.data),
+    getAllProductsOnWarehouseById: (id, params = {}) =>
+        axiosService.get(`${urls.inventory}/warehouse/${id}`, { params })
+            .then(res => res.data)
+
 };
 
 export {
