@@ -8,8 +8,6 @@ const SingleInventoryItemComponent = ({ product, onShowDescription }) => {
     const { productName, quantity, description, price, isActive, categoryName } = product;
 
 
-    console.log(product);
-
     return (
         <div className={css.wrap}>
             <div className={css.name}>{productName}</div>
