@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     page: 1,
-    limit: null,
+    limit: 20,
     search: '',
     categoryId: '',
     sortBy: '',

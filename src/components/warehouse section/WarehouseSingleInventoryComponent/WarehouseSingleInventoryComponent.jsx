@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import css from './WarehouseSingleInventoryComponent.module.css';
 import { inventoryService, warehouseService } from "../../../services/warehouseServices";
 import { SingleInventoryMenuComponent } from "../SingleInventoryMenuComponent/SingleInventoryMenuComponent.jsx";
 import SingleInventoryItemComponent from "../SingleInventoryItemComponent/SingleInventoryItemComponent.jsx";
 import { DescriptionSingleInventoryItemOnWarehouse } from "../warehouseModals";
-
+import { Pagination } from "../../../ui/Pagination/Pagination.jsx";
+import { inventoryQueryActions } from "../../../store/index.js";
 
 const WarehouseSingleInventoryComponent = () => {
+    const dispatch = useDispatch();
     const { id } = useParams();
 
-
     const inventoryQuery = useSelector(store => store.inventoryQuery);
-
 
     const [infoArray, setInfoArray] = useState([]);
     const [warehouseSingleName, setWarehouseSingleName] = useState(null);
     const [descriptionModalData, setDescriptionModalData] = useState(null);
+
+    // Стан для пагінації
+    const [total, setTotal] = useState(0);
+    const [limit, setLimit] = useState(20);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         const fetchDataInventory = async () => {
@@ -28,13 +33,18 @@ const WarehouseSingleInventoryComponent = () => {
                 const response = await inventoryService.getAllProductsOnWarehouseById(id, inventoryQuery);
 
                 setWarehouseSingleName(warehouseResponse);
-                setInfoArray(response.items);
+                setInfoArray(response.items || []);
+                setTotal(response.total || 0);
+                setLimit(response.limit || 20);
+                setPage(response.page || 1);
             } catch (e) {
                 console.error(e);
                 toast.error('Помилка створення');
-
                 setWarehouseSingleName(null);
                 setInfoArray([]);
+                setTotal(0);
+                setPage(1);
+                setLimit(20);
             }
         }
         fetchDataInventory();
@@ -45,6 +55,11 @@ const WarehouseSingleInventoryComponent = () => {
     };
     const handleCloseDescription = () => {
         setDescriptionModalData(null);
+    };
+
+    // При кліку на пагінацію оновлювати page в редаксі
+    const handlePageChange = (newPage) => {
+        dispatch(inventoryQueryActions.setPage(newPage));
     };
 
     return (
@@ -76,7 +91,17 @@ const WarehouseSingleInventoryComponent = () => {
                         <div className={css.noProducts}>Немає товарів</div>
                     )}
                 </div>
+
+                <div className={css.paginationBlock}>
+                    <Pagination
+                        totalItems={total}
+                        limit={limit}
+                        currentPage={page}
+                        onPageChange={handlePageChange}
+                    />
+                </div>
             </div>
+
             {descriptionModalData && (
                 <DescriptionSingleInventoryItemOnWarehouse
                     setIsOpenDescription={handleCloseDescription}

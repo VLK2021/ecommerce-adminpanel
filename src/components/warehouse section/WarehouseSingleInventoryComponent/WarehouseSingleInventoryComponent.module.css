@@ -87,4 +87,13 @@
     opacity: 0.8;
 }
 
+.paginationBlock {
+    width: 100%;
+    height: 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--bg-color-hr);
+}
+
 

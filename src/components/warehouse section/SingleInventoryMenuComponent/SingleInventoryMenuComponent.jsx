@@ -1,24 +1,22 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 import css from './SingleInventoryMenuComponent.module.css';
-import {ButtonAll, CustomSelect, SearchInput} from "../../../ui/index.js";
-import {inventoryQueryActions} from "../../../store/index.js";
-import {categoryActions} from "../../../store/slices/category.slice.jsx";
-
+import { ButtonAll, CustomSelect, SearchInput } from "../../../ui";
+import { inventoryQueryActions } from "../../../store";
+import { categoryActions } from "../../../store/slices/category.slice.jsx";
 
 const sortOptionsProducts = [
-    {value: 'name_asc', label: 'Назва (А-Я)'},
-    {value: 'name_desc', label: 'Назва (Я-А)'},
-    {value: 'price_asc', label: 'Ціна ↑'},
-    {value: 'price_desc', label: 'Ціна ↓'},
+    { value: 'name_asc', label: 'Назва (А-Я)' },
+    { value: 'name_desc', label: 'Назва (Я-А)' },
+    { value: 'price_asc', label: 'Ціна ↑' },
+    { value: 'price_desc', label: 'Ціна ↓' },
 ];
-
 
 const SingleInventoryMenuComponent = () => {
     const dispatch = useDispatch();
 
-    const {categories} = useSelector(store => store.category);
+    const { categories } = useSelector(store => store.category);
 
     const {
         search,
@@ -30,16 +28,12 @@ const SingleInventoryMenuComponent = () => {
         dispatch(categoryActions.getAllCategories());
     }, [dispatch]);
 
-    const handleSearchWarehousesChange = (e) => {
-        dispatch(inventoryQueryActions.setSearch(e.target.value));
-    };
-
     const handleSearchWarehousesDebounced = (value) => {
-        console.log(value);
+        dispatch(inventoryQueryActions.setSearch(value));
     };
 
     const handleReset = () => {
-
+        dispatch(inventoryQueryActions.resetFilters());
     };
 
 
@@ -48,7 +42,6 @@ const SingleInventoryMenuComponent = () => {
             <SearchInput
                 name="productsSearch"
                 value={search}
-                onChange={handleSearchWarehousesChange}
                 onDebouncedSearch={handleSearchWarehousesDebounced}
                 placeholder="Пошук по складу"
             />
@@ -78,4 +71,4 @@ const SingleInventoryMenuComponent = () => {
     );
 };
 
-export {SingleInventoryMenuComponent};
+export { SingleInventoryMenuComponent };
