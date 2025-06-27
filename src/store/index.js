@@ -5,3 +5,4 @@ export * from './slices/productsQuerySlice.jsx';
 export * from './slices/warehousesQuerySlice.jsx';
 export * from './slices/warehouseSlice.jsx';
 export * from './slices/inventoryQuerySlice.jsx';
+export * from './slices/order.slice.jsx';

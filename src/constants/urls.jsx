@@ -13,6 +13,9 @@ const urls = {
     product: '/products',
     warehouse: '/warehouses',
     inventory: '/inventory',
+    orders: '/orders',
+    payments: '/payments',
+    history: '/order-status-history',
 }
 
 export {

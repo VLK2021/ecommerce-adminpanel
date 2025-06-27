@@ -1,9 +1,11 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { productService } from "../../services";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+
+import {productService} from "../../services";
+
 
 const getAllProducts = createAsyncThunk(
     'productSlice/getAllProducts',
-    async (params, { rejectWithValue }) => {
+    async (params, {rejectWithValue}) => {
         try {
             return await productService.getAllProducts(params);
         } catch (e) {
@@ -28,15 +30,33 @@ const productSlice = createSlice({
     name: 'productSlice',
     initialState,
     reducers: {
-        changeTrigger: (state) => { state.trigger += 1; },
-        openCreateProductModal: (state) => { state.isOpenCreateModal = true; },
-        closeCreateProductModal: (state) => { state.isOpenCreateModal = false; },
-        openUpdateProductModal: (state) => { state.isOpenUpdateModal = true; },
-        closeUpdateProductModal: (state) => { state.isOpenUpdateModal = false; },
-        openDetailsModal: (state) => { state.isOpenDetailsModal = true; },
-        closeDetailsModal: (state) => { state.isOpenDetailsModal = false; },
-        selectProduct: (state, action) => { state.selectedProductId = action.payload; },
-        resetSelectedProduct: (state) => { state.selectedProductId = null; }
+        changeTrigger: (state) => {
+            state.trigger += 1;
+        },
+        openCreateProductModal: (state) => {
+            state.isOpenCreateModal = true;
+        },
+        closeCreateProductModal: (state) => {
+            state.isOpenCreateModal = false;
+        },
+        openUpdateProductModal: (state) => {
+            state.isOpenUpdateModal = true;
+        },
+        closeUpdateProductModal: (state) => {
+            state.isOpenUpdateModal = false;
+        },
+        openDetailsModal: (state) => {
+            state.isOpenDetailsModal = true;
+        },
+        closeDetailsModal: (state) => {
+            state.isOpenDetailsModal = false;
+        },
+        selectProduct: (state, action) => {
+            state.selectedProductId = action.payload;
+        },
+        resetSelectedProduct: (state) => {
+            state.selectedProductId = null;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -56,8 +76,8 @@ const productSlice = createSlice({
     }
 });
 
-const { reducer: productReducer, actions } = productSlice;
-const productActions = { ...actions, getAllProducts };
+const {reducer: productReducer, actions} = productSlice;
+const productActions = {...actions, getAllProducts};
 
 export {
     productReducer,

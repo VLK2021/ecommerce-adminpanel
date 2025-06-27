@@ -21,6 +21,7 @@ import {
 import {WarehousesComponent, WarehousesInventoryComponent} from "./components/warehouse section/index.js";
 import WarehouseSingleInventoryComponent
     from "./components/warehouse section/WarehouseSingleInventoryComponent/WarehouseSingleInventoryComponent.jsx";
+import {OrdersComponent} from "./components/ordersSection/index.js";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,10 @@ const router = createBrowserRouter([
             {
                 element: <PrivateRoute><PrivateLayout/></PrivateRoute>, children: [
                     {path: '/dashboard', element: <DashboardPage/>, children: []},
-                    {path: '/orders', element: <OrdersPage/>, children: []},
+                    {path: '/orders', element: <OrdersPage/>, children: [
+                            {index: true, element: <Navigate to={'/orders/list'}/>},
+                            {path: 'list', element: <OrdersComponent/>},
+                        ]},
                     {path: '/carts', element: <CartsPage/>, children: []},
                     {path: '/catalog', element: <CatalogPage/>, children: [
                             {index: true, element: <Navigate to={'/catalog/products'}/>},
