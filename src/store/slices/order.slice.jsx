@@ -20,7 +20,9 @@ const initialState = {
     total: 0,
     status: null,
     error: null,
+
     trigger: 0,
+    activeStep: 0,
 
     isOpenCreateOrderModal: false,
     isOpenUpdateOrderModal: false,
@@ -34,6 +36,9 @@ const orderSlice = createSlice({
     reducers: {
         changeTrigger: (state) => {
             state.trigger += 1;
+        },
+        changeActiveStep: (state, action) => {
+            state.activeStep = action.payload;
         },
         openCreateOrderModal: (state) => {
             state.isOpenCreateOrderModal = true;
