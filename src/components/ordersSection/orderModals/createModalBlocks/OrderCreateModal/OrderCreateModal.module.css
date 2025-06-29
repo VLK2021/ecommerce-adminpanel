@@ -23,15 +23,6 @@
     overflow: auto;
 }
 
-.form {
-    width: 100%;
-    min-height: 10vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
 .header {
     display: flex;
     justify-content: space-between;
@@ -44,11 +35,22 @@
     color: var(--el-color-info-dark-2);
 }
 
+.stepsBlock {
+    width: 100%;
+}
+
+
 .form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 1rem;
+    width: 100%;
+    min-height: 10vh;
+}
+
+.infoBlock {
+    width: 100%;
 }
 
 .buttonsBlock {

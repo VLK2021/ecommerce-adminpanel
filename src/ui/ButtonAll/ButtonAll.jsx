@@ -8,7 +8,7 @@ const ButtonAll = (props) => {
 
 
     return (
-        <button className={css.wrap} onClick={onClick}>
+        <button type="button" className={css.wrap} onClick={onClick}>
             <span>{titleButton}</span>
         </button>
     );

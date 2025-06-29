@@ -3,15 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 import css from './StepsInModal.module.css';
 import {orderActions} from "../../../../store/index.js";
+import {STEPS} from "../../../../helpers/index.js";
 
-
-const STEPS = [
-    { label: 'Клієнт', icon: '👤' },
-    { label: 'Товари', icon: '🧾' },
-    { label: 'Доставка', icon: '🚚' },
-    { label: 'Оплата', icon: '💳' },
-    { label: 'Підтвердження', icon: '✅' },
-];
 
 const StepsInModal = () => {
     const dispatch = useDispatch();
@@ -30,7 +23,7 @@ const StepsInModal = () => {
                             <span className={css.icon}>{step.icon}</span>
                             <span>{step.label}</span>
                         </div>
-                        {idx < STEPS.length - 1 && <div className={css.stepDivider} />}
+                        {idx < STEPS.length - 1 && <div className={css.stepDivider}/>}
                     </React.Fragment>
                 ))}
             </div>
@@ -38,4 +31,6 @@ const StepsInModal = () => {
     );
 };
 
-export {StepsInModal};
+export {
+    StepsInModal
+}

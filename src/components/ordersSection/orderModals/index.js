@@ -1,2 +1,7 @@
 export * from './createModalBlocks/OrderCreateModal/OrderCreateModal.jsx';
 export * from './StepsInModal/StepsInModal.jsx';
+export * from './createModalBlocks/StepClient/StepClient.jsx';
+export * from './createModalBlocks/StepProducts/StepProducts.jsx';
+export * from './createModalBlocks/StepDelivery/StepDelivery.jsx';
+export * from './createModalBlocks/StepPayment/StepPayment.jsx';
+export * from './createModalBlocks/StepFinalInformation/StepFinalInformation.jsx';
