@@ -6,6 +6,7 @@ const urls = {
         logout : '/auth/logout',
         getMe : '/auth/me',
     },
+    user: '/users',
     category: '/categories',
     attributes: {
         attribute: '/attributes',

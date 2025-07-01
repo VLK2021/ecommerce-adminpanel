@@ -1,0 +1,28 @@
+.wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.label {
+    font-weight: 500;
+}
+.input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #d2d2d2;
+    font-size: 16px;
+}
+.required {
+    color: red;
+    font-size: 16px;
+}
+.error {
+    color: red;
+    font-size: 12px;
+}

@@ -26,10 +26,10 @@ const OrderCreateModal = () => {
             console.log(data);
 
             const formatedData = {
-                userId: "",
-                customerName: "",
-                customerPhone: "",
-                customerEmail: "",
+                userId: '',
+                customerName: '',
+                customerPhone: '',
+                customerEmail: '',
                 deliveryType: "",
                 deliveryData: {
                     city: "",
@@ -39,7 +39,6 @@ const OrderCreateModal = () => {
                 totalPrice: 640.5,
                 items: [],
             };
-            console.log(formatedData);
 
             dispatch(orderActions.changeTrigger());
             toast.success('Товар успішно створений!');
