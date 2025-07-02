@@ -7,3 +7,4 @@ export * from './createModalBlocks/StepPayment/StepPayment.jsx';
 export * from './createModalBlocks/StepFinalInformation/StepFinalInformation.jsx';
 export * from './createModalBlocks/RegisteredUser/RegisteredUser.jsx';
 export * from './createModalBlocks/GuestUserForm/GuestUserForm.jsx';
+export * from './createModalBlocks/SingleSearchProduct/SingleSearchProduct.jsx';

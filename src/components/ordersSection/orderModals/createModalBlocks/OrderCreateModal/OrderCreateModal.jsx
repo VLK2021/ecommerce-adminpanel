@@ -22,23 +22,42 @@ const OrderCreateModal = () => {
 
 
     const onSubmit = (data) => {
-        try {
-            console.log(data);
+        console.log(data);
 
-            const formatedData = {
-                userId: '',
-                customerName: '',
-                customerPhone: '',
-                customerEmail: '',
-                deliveryType: "",
-                deliveryData: {
-                    city: "",
-                    warehouse: ""
-                },
-                comment: "",
-                totalPrice: 640.5,
-                items: [],
+        let formatedData;
+        try {
+            if (data.isGuest === 'true') {
+                formatedData = {
+                    userId: '',
+                    customerName: '',
+                    customerPhone: '',
+                    customerEmail: '',
+                    deliveryType: "",
+                    deliveryData: {
+                        city: "",
+                        warehouse: ""
+                    },
+                    comment: "",
+                    totalPrice: 640.5,
+                    items: [],
+                };
+            }else {
+                formatedData = {
+                    userId: '',
+                    customerName: '',
+                    customerPhone: '',
+                    customerEmail: '',
+                    deliveryType: "",
+                    deliveryData: {
+                        city: "",
+                        warehouse: ""
+                    },
+                    comment: "",
+                    totalPrice: 640.5,
+                    items: [],
+                };
             };
+
 
             dispatch(orderActions.changeTrigger());
             toast.success('Товар успішно створений!');
