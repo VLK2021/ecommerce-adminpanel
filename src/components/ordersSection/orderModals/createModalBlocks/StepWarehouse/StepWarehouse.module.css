@@ -1,0 +1,26 @@
+.wrap {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-secondary);
+    margin-bottom: 3px;
+    text-align: left;
+    letter-spacing: 0.05em;
+}
+
+.error {
+    color: var(--el-color-error);
+    background: var(--el-color-error-light-8);
+    border-radius: 6px;
+    font-size: 0.99rem;
+    padding: 5px 8px;
+    margin-top: 6px;
+    width: fit-content;
+}

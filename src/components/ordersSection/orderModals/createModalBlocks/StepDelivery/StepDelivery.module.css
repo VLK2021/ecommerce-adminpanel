@@ -1,3 +1,27 @@
 .wrap {
     width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 20px;
+    color: var(--text-color);
+    background: var(--bg-color);
 }
+
+.title {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    text-align: start;
+}
+
+.blockTypeDelivery {
+    width: 100%;
+}
+
+.blockInfo {
+    width: 100%;
+}
+

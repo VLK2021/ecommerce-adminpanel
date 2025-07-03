@@ -1,0 +1,32 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 1rem;
+}
+
+.label {
+    font-size: 1.11rem;
+    font-weight: 600;
+    color: var(--text-secondary, #348059);
+    margin-bottom: 4px;
+}
+
+.required {
+    color: #ff3030;
+    font-size: 1.12em;
+    font-weight: 900;
+    margin-left: 2px;
+}
+
+.input {
+    width: 100%;
+    font-size: 1.08rem;
+}

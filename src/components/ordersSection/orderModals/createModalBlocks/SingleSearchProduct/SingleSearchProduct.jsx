@@ -12,7 +12,7 @@ const SingleSearchProduct = ({searchResults, selected, onAdd}) => {
                 {searchResults.map(product => (
                     <li className={css.productItem} key={product.id}>
                         <span className={css.productInfo}>
-                            <span className={css.productName}>{product.name}</span>
+                            <span className={css.productName}>{product.productName}</span>
 
                             {product.categoryName && (
                                 <span className={css.productCategory}>
@@ -24,9 +24,10 @@ const SingleSearchProduct = ({searchResults, selected, onAdd}) => {
                         </span>
 
                         <button
+                            type={'button'}
                             className={css.addButton}
                             onClick={() => onAdd(product)}
-                            disabled={selected.some(p => p.id === product.id)}
+                            disabled={selected.some(p => p.id === product.productId)}
                         >
                             Додати
                         </button>

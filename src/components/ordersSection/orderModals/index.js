@@ -8,3 +8,5 @@ export * from './createModalBlocks/StepFinalInformation/StepFinalInformation.jsx
 export * from './createModalBlocks/RegisteredUser/RegisteredUser.jsx';
 export * from './createModalBlocks/GuestUserForm/GuestUserForm.jsx';
 export * from './createModalBlocks/SingleSearchProduct/SingleSearchProduct.jsx';
+export * from './createModalBlocks/StepWarehouse/StepWarehouse.jsx';
+export * from './createModalBlocks/DeliveryNova/DeliveryNova.jsx';

@@ -3,22 +3,24 @@ import {
     StepDelivery,
     StepFinalInformation,
     StepPayment,
-    StepProducts
+    StepProducts, StepWarehouse
 } from "../components/ordersSection/orderModals/index.js";
 
 
 const stepsItemsRender = (activeStep) => {
     switch (activeStep) {
         case 0:
-            return <StepClient />;
+            return <StepWarehouse/>;
         case 1:
-            return <StepProducts/>;
+            return <StepClient />;
         case 2:
-            return <StepDelivery/>;
+            return <StepProducts/>;
         case 3:
-            return <StepPayment/>;
+            return <StepDelivery/>;
         case 4:
             return <StepFinalInformation/>;
+        case 5:
+            return <StepPayment/>;
         default:
             return null;
     }
