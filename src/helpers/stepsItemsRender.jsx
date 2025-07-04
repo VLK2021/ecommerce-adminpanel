@@ -18,9 +18,9 @@ const stepsItemsRender = (activeStep) => {
         case 3:
             return <StepDelivery/>;
         case 4:
-            return <StepFinalInformation/>;
-        case 5:
             return <StepPayment/>;
+        case 5:
+            return <StepFinalInformation/>;
         default:
             return null;
     }

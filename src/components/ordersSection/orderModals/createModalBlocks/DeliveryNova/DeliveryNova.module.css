@@ -30,3 +30,22 @@
     width: 100%;
     font-size: 1.08rem;
 }
+
+.textarea {
+    padding: 12px 14px;
+    border-radius: 9px;
+    border: 1.5px solid var(--bg-color-hr, #dde2de);
+    background: var(--bg-color, #fff);
+    color: var(--text-color, #202222);
+    font-size: 1.08rem;
+    min-height: 84px;
+    resize: vertical;
+    transition: border 0.17s, box-shadow 0.13s;
+    box-shadow: 0 2px 14px 0 rgba(50, 170, 113, 0.06);
+    outline: none;
+}
+.textarea:focus {
+    border: 1.7px solid var(--primary-color, #19b97e);
+    box-shadow: 0 3px 12px 0 rgba(50, 170, 113, 0.09);
+}
+

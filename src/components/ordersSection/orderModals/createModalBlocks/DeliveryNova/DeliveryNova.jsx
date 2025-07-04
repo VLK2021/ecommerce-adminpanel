@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Select from 'react-select';
 import {useFormContext} from 'react-hook-form';
-
 import css from './DeliveryNova.module.css';
 import {novaPoshtaService} from "../../../../../services/deliveryServices/index.js";
-
 
 const DeliveryNova = () => {
     const {setValue, watch} = useFormContext();
@@ -13,6 +11,7 @@ const DeliveryNova = () => {
     const selectedCity = deliveryData.city || null;
     const selectedCityRef = selectedCity?.value || null;
     const selectedWarehouse = deliveryData.warehouse || null;
+    const comment = deliveryData.comment || '';
 
     const [cityOptions, setCityOptions] = useState([]);
     const [warehouseOptions, setWarehouseOptions] = useState([]);
@@ -42,7 +41,7 @@ const DeliveryNova = () => {
         }, {shouldDirty: true});
     };
 
-    // Дебаг і підвантаження відділень/поштоматів
+    // Підвантаження відділень/поштоматів
     useEffect(() => {
         if (!selectedCityRef) {
             setWarehouseOptions([]);
@@ -61,7 +60,6 @@ const DeliveryNova = () => {
                 (w.CategoryOfWarehouse && w.CategoryOfWarehouse.toLowerCase().includes("postomat")) ||
                 (w.Description && w.Description.toLowerCase().includes("поштомат"))
             );
-
             const options = [];
             if (branches.length) {
                 options.push({
@@ -85,8 +83,7 @@ const DeliveryNova = () => {
             }
             setWarehouseOptions(options);
         }).finally(() => setLoadingWarehouses(false));
-        // eslint-disable-next-line
-    }, [selectedCityRef]);
+    }, [selectedCityRef]); // only on city change
 
     // Для value у select шукай серед груп
     const getSelectedWarehouseOption = () => {
@@ -102,6 +99,14 @@ const DeliveryNova = () => {
         setValue('deliveryData', {
             ...deliveryData,
             warehouse: option,
+        }, {shouldDirty: true});
+    };
+
+    // Коментар
+    const handleCommentChange = (e) => {
+        setValue('deliveryData', {
+            ...deliveryData,
+            comment: e.target.value,
         }, {shouldDirty: true});
     };
 
@@ -138,6 +143,18 @@ const DeliveryNova = () => {
                     isClearable
                     isLoading={loadingWarehouses}
                     noOptionsMessage={() => selectedCityRef ? "Немає варіантів" : "Оберіть місто"}
+                />
+            </div>
+
+            <div className={css.block}>
+                <label className={css.label}>Коментар до замовлення</label>
+                <textarea
+                    className={css.textarea}
+                    placeholder="Додайте коментар до доставки (необов'язково)..."
+                    value={comment}
+                    onChange={handleCommentChange}
+                    rows={3}
+                    maxLength={512}
                 />
             </div>
         </div>

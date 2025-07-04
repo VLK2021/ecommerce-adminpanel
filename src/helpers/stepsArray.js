@@ -3,8 +3,8 @@ const STEPS = [
     {label: 'Клієнт', icon: '👤'},
     {label: 'Товари', icon: '🧾'},
     {label: 'Доставка', icon: '🚚'},
-    {label: 'Інформація', icon: '✅'},
     {label: 'Оплата', icon: '💳'},
+    {label: 'Інформація', icon: '✅'},
 ];
 
 export {
