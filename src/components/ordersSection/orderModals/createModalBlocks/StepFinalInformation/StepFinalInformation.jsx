@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import css from "./StepFinalInformation.module.css";
-import {ButtonAll} from "../../../../../ui/index.js";
-import {useDispatch} from "react-redux";
-import {orderActions} from "../../../../../store/index.js";
+import { ButtonAll } from "../../../../../ui/index.js";
+import { useDispatch } from "react-redux";
+import { orderActions } from "../../../../../store/index.js";
 
 
 const paymentTypeMap = {
@@ -14,6 +14,7 @@ const paymentTypeMap = {
     invoice: "Безготівковий рахунок",
     apple_pay: "Apple Pay / Google Pay",
 };
+
 const deliveryMap = {
     nova: "Нова Пошта",
     courier: "Кур'єр",
@@ -34,21 +35,25 @@ export const StepFinalInformation = () => {
     const deliveryData = watch("deliveryData") || {};
     const selectedUser = watch("selectedUser") || {};
 
-    // Локальні стани для інпутів
+    // Стани для інпутів (імʼя, прізвище, телефон)
     const [editName, setEditName] = useState(false);
     const [editLastName, setEditLastName] = useState(false);
     const [editPhone, setEditPhone] = useState(false);
 
-    const [nameDraft, setNameDraft] = useState(
-        isGuest === "true" ? deliveryData.guestName || "" : selectedUser.name || ""
-    );
-    const [lastNameDraft, setLastNameDraft] = useState(
-        isGuest === "true" ? deliveryData.guestLastName || "" : selectedUser.lastName || ""
-    );
-    const [phoneDraft, setPhoneDraft] = useState(
-        isGuest === "true" ? deliveryData.guestPhone || "" : selectedUser.phone || ""
-    );
+    const [nameDraft, setNameDraft] = useState(isGuest === "true" ? deliveryData.guestName || "" : selectedUser.name || "");
+    const [lastNameDraft, setLastNameDraft] = useState(isGuest === "true" ? deliveryData.guestLastName || "" : selectedUser.lastName || "");
+    const [phoneDraft, setPhoneDraft] = useState(isGuest === "true" ? deliveryData.guestPhone || "" : selectedUser.phone || "");
 
+    // Значення для перевірки
+    const nameValue = isGuest === "true" ? deliveryData.guestName : selectedUser.name;
+    const lastNameValue = isGuest === "true" ? deliveryData.guestLastName : selectedUser.lastName;
+    const phoneValue = isGuest === "true" ? deliveryData.guestPhone : selectedUser.phone;
+    const emailValue = isGuest === "true" ? deliveryData.guestEmail : selectedUser.email || "—";
+    const { city, warehouse, comment, region, street, house, apartment, entrance, floor } = deliveryData;
+
+    const total = deliveryData.totalPrice || products.reduce((acc, p) => acc + ((+p.price || 0) * (+p.quantity || 1)), 0);
+
+    // Підтвердити зміни
     const handleConfirm = (field) => {
         if (field === "name") {
             if (isGuest === "true") setValue("deliveryData.guestName", nameDraft, { shouldDirty: true });
@@ -67,18 +72,10 @@ export const StepFinalInformation = () => {
         }
     };
 
-    const nameValue = isGuest === "true" ? deliveryData.guestName : selectedUser.name;
-    const lastNameValue = isGuest === "true" ? deliveryData.guestLastName : selectedUser.lastName;
-    const phoneValue = isGuest === "true" ? deliveryData.guestPhone : selectedUser.phone;
-    const emailValue = isGuest === "true" ? deliveryData.guestEmail : selectedUser.email || "—";
-    const { city, warehouse, comment, region, street, house, apartment, entrance, floor } = deliveryData;
-
-    const total = deliveryData.totalPrice || products.reduce((acc, p) => acc + ((+p.price || 0) * (+p.quantity || 1)), 0);
-
+    // Перехід на крок
     const goToStep = (current) => {
-        dispatch(orderActions.changeActiveStep(current))
+        dispatch(orderActions.changeActiveStep(current));
     }
-
 
     return (
         <div className={css.page}>
@@ -106,7 +103,7 @@ export const StepFinalInformation = () => {
                             <b>{nameValue}</b>
                             <button
                                 className={css.editBtn}
-                                onClick={e => { e.preventDefault(); setEditName(true); setNameDraft(nameValue) }}
+                                onClick={e => { e.preventDefault(); setEditName(true); setNameDraft(nameValue || "") }}
                                 type="button"
                                 title="Редагувати"
                             >✏️</button>
@@ -129,7 +126,7 @@ export const StepFinalInformation = () => {
                             <b>{lastNameValue}</b>
                             <button
                                 className={css.editBtn}
-                                onClick={e => { e.preventDefault(); setEditLastName(true); setLastNameDraft(lastNameValue) }}
+                                onClick={e => { e.preventDefault(); setEditLastName(true); setLastNameDraft(lastNameValue || "") }}
                                 type="button"
                                 title="Редагувати"
                             >✏️</button>
@@ -152,7 +149,7 @@ export const StepFinalInformation = () => {
                             <b>{phoneValue}</b>
                             <button
                                 className={css.editBtn}
-                                onClick={e => { e.preventDefault(); setEditPhone(true); setPhoneDraft(phoneValue) }}
+                                onClick={e => { e.preventDefault(); setEditPhone(true); setPhoneDraft(phoneValue || "") }}
                                 type="button"
                                 title="Редагувати"
                             >✏️</button>
@@ -160,7 +157,7 @@ export const StepFinalInformation = () => {
                     )}
                 </div>
                 <div className={css.field}>
-                    <span className={css.sub}>Email:</span>{" "}
+                    <span className={css.sub}>Email:</span>
                     <b>{emailValue}</b>
                 </div>
             </div>
@@ -212,7 +209,6 @@ export const StepFinalInformation = () => {
                     <div className={css.blockTitle}>Товари</div>
                     <ButtonAll titleButton="Редагувати" onClick={() => goToStep(2)} />
                 </div>
-
                 <div className={css.productsList}>
                     {products.length === 0
                         ? <div className={css.warn}>Товари відсутні</div>
@@ -221,7 +217,7 @@ export const StepFinalInformation = () => {
                                 <span className={css.productName}><b>{item.productName}</b></span>
                                 <span>×{item.quantity}</span>
                                 {item.price &&
-                                    <span className={css.price}> {item.price} грн</span>
+                                    <span className={css.price}>{item.price} грн</span>
                                 }
                             </div>
                         ))
