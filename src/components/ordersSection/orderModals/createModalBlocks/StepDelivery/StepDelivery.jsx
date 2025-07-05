@@ -8,9 +8,9 @@ import {stepsDeliveryItemsRender} from "../../../../../helpers/index.js";
 
 const deliveryOptions = [
     {value: "nova", label: "Нова Пошта"},
+    {value: "courier", label: "Кур'єр"},
     {value: "ukr", label: "Укрпошта"},
     {value: "meest", label: "Міст-експрес"},
-    {value: "courier", label: "Кур'єр"},
     {value: "pickup", label: "Самовивіз"},
 ];
 
