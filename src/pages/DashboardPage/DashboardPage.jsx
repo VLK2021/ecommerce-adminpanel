@@ -12,6 +12,7 @@ const DashboardPage = () => {
             <ButtonCancel/>
             <ButtonOk/>
             <ButtonClose/>
+
         </div>
     );
 };
