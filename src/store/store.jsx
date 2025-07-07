@@ -9,6 +9,7 @@ import {warehouseReducer} from "./slices/warehouseSlice.jsx";
 import {warehousesQueryReducer} from "./slices/warehousesQuerySlice.jsx";
 import {inventoryQueryReducer} from "./slices/inventoryQuerySlice.jsx";
 import {orderReducer} from "./slices/order.slice.jsx";
+import {orderQueryReducer} from "./slices/orderQuerySlice.jsx";
 
 
 
@@ -23,6 +24,7 @@ const store = configureStore({
         warehousesQuery: warehousesQueryReducer,
         inventoryQuery:inventoryQueryReducer,
         order: orderReducer,
+        orderQuery: orderQueryReducer
     }
 });
 

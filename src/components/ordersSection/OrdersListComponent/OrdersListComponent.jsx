@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 
 import css from './OrdersListComponent.module.css';
 import {Pagination} from "../../../ui/Pagination/Pagination.jsx";
-import {useSelector} from "react-redux";
-import ProductSingleItemComponent from "../../catalogSection/ProductSingleItemComponent/ProductSingleItemComponent.jsx";
+import {orderActions} from "../../../store/index.js";
 
 
 const OrdersListComponent = () => {
+    const dispatch = useDispatch();
     const {orders, trigger, total} = useSelector(store => store.order);
+    const {page, limit, userId, status, search, sortBy, sortOrder} = useSelector(store => store.orderQuery);
+
+
+    useEffect(() => {
+        dispatch(orderActions.getAllOrders({page, limit, search, sortBy, sortOrder, userId, status}));
+    }, [dispatch, trigger, limit, page, search, sortBy, sortOrder, status, userId]);
 
 
     return (
@@ -19,17 +26,17 @@ const OrdersListComponent = () => {
             <div className={css.ordersScroll}>
                 {Array.isArray(orders) && orders.length > 0 ? (
                     orders.map((obj) => (
-                        <div key={obj.id}>{obj.id}</div>
+                        <div key={obj.id}>{obj.orderNumber}</div>
                     ))
                 ) : (
-                    <div className={css.noProducts}>Немає товарів</div>
+                    <div className={css.noProducts}>Немає ордерів</div>
                 )}
             </div>
 
             <div className={css.paginationBlock}>
                 <Pagination
                     totalItems={total}
-                    limit={''}
+                    limit={limit}
                     onPageChange={() => null}
                 />
             </div>

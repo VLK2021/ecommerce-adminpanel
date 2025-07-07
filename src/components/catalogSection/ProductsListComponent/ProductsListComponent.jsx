@@ -6,6 +6,7 @@ import { productActions, productsQueryActions } from "../../../store";
 import ProductSingleItemComponent from "../ProductSingleItemComponent/ProductSingleItemComponent";
 import { Pagination } from "../../../ui/Pagination/Pagination";
 
+
 const ProductsListComponent = () => {
     const dispatch = useDispatch();
     const { products, trigger, total } = useSelector(store => store.product);
