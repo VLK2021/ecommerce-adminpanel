@@ -44,11 +44,11 @@ const orderQuerySlice = createSlice({
 });
 
 const {reducer: orderQueryReducer, actions} = orderQuerySlice;
-const orderActions = {
+const orderQueryActions = {
     ...actions,
 }
 
 export {
     orderQueryReducer,
-    orderActions
+    orderQueryActions
 }

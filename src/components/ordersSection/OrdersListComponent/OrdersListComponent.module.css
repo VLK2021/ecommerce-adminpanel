@@ -28,17 +28,20 @@
     letter-spacing: 0.5px;
 }
 
-.name, .price, .category, .current, .status {
+.orderNumber, .orderName, .orderPrice, .paymentStatus, .orderStatus, .date, .delivery {
     border-right: 1px solid var(--el-color-primary);
 }
 
-.name { width: 30%; }
-.price { width: 15%; }
-.category { width: 10%; }
-.current { width: 10%; }
-.status { width: 10%; }
+.orderNumber { width: 5%; }
+.orderName { width: 20%; }
+.orderPrice { width: 10%; }
+.paymentStatus { width: 15%; }
+.orderStatus { width: 10%; }
+.date { width: 10%; }
+.delivery { width: 15%; }
+
 .action {
-    width: 10%;
+    width: 15%;
     display: flex;
     justify-content: center;
     align-items: center;

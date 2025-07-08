@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import css from './OrdersListComponent.module.css';
 import {Pagination} from "../../../ui/Pagination/Pagination.jsx";
 import {orderActions} from "../../../store/index.js";
+import OrderItemListComponent from "../OrderItemListComponent/OrderItemListComponent.jsx";
 
 
 const OrdersListComponent = () => {
@@ -20,13 +21,23 @@ const OrdersListComponent = () => {
     return (
         <div className={css.pageContent}>
             <div className={css.header}>
-
+                <div className={css.orderNumber}>№</div>
+                <div className={css.orderName}>Клієнт</div>
+                <div className={css.orderPrice}>Сума</div>
+                <div className={css.paymentStatus}>Оплата</div>
+                <div className={css.orderStatus}>Статус</div>
+                <div className={css.date}>Дата</div>
+                <div className={css.delivery}>Доставка</div>
+                <div className={css.action}>Дія</div>
             </div>
 
             <div className={css.ordersScroll}>
                 {Array.isArray(orders) && orders.length > 0 ? (
                     orders.map((obj) => (
-                        <div key={obj.id}>{obj.orderNumber}</div>
+                        <OrderItemListComponent
+                            key={obj.id}
+                            order={obj}
+                        />
                     ))
                 ) : (
                     <div className={css.noProducts}>Немає ордерів</div>
