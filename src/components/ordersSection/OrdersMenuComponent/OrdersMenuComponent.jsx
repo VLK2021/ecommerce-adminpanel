@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import css from './OrdersMenuComponent.module.css';
-import {ButtonCreate, CustomSelect, SearchInput} from "../../../ui/index.js";
+import {ButtonAll, ButtonCreate, CustomSelect, SearchInput} from "../../../ui/index.js";
 import {orderActions} from "../../../store/index.js";
 import {orderQueryActions} from "../../../store/slices/orderQuerySlice.jsx";
 
@@ -47,6 +47,10 @@ const OrdersMenuComponent = () => {
         dispatch(orderQueryActions.setSearch(value));
     };
 
+    const handleReset = () => {
+        dispatch(orderQueryActions.resetFilters());
+    };
+
 
     return (
         <div className={css.wrap}>
@@ -76,6 +80,11 @@ const OrdersMenuComponent = () => {
                 options={statusOptions}
                 placeholder="Статус"
                 onChangeCallback={(value) => dispatch(orderQueryActions.setStatus(value))}
+            />
+
+            <ButtonAll
+                titleButton="Скинути фільтри"
+                onClick={handleReset}
             />
         </div>
     );
