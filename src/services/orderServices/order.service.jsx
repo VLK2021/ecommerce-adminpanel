@@ -15,6 +15,12 @@ const orderService = {
             params: queryParams
         }).then(res => res.data);
     },
+
+    getOrderById: (id) => axiosService.get(`${urls.orders}/${id}`)
+        .then(res => res.data),
+
+  updateOrderById: (id, data) => axiosService.patch(`${urls.orders}/${id}`, data)
+        .then(res => res.data),
 };
 
 export {

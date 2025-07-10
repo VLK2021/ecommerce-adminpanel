@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import css from './OrdersComponent.module.css';
 import OrdersMenuComponent from "../OrdersMenuComponent/OrdersMenuComponent.jsx";
 import OrdersListComponent from "../OrdersListComponent/OrdersListComponent.jsx";
-import {OrderCreateModal} from "../orderModals/index.js";
+import {OrderCreateModal, OrderUpdateModal} from "../orderModals/index.js";
 
 
 const OrdersComponent = () => {
@@ -24,7 +24,7 @@ const OrdersComponent = () => {
             </div>
 
             {isOpenCreateOrderModal && <OrderCreateModal/>}
-            {isOpenUpdateOrderModal && ''}
+            {isOpenUpdateOrderModal && <OrderUpdateModal/>}
             {isOpenDetailsOrderModal && ''}
         </div>
     );

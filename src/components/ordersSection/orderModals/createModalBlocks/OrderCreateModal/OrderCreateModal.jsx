@@ -10,7 +10,6 @@ import { StepsInModal } from "../../StepsInModal/StepsInModal.jsx";
 import { STEPS, stepsItemsRender } from "../../../../../helpers/index.js";
 import { orderService } from "../../../../../services/orderServices/index.js";
 
-
 const OrderCreateModal = () => {
     const dispatch = useDispatch();
     const { activeStep } = useSelector(store => store.order);
@@ -22,13 +21,14 @@ const OrderCreateModal = () => {
 
     const onSubmit = async (data) => {
         try {
-            // 1. Який юзер
+            // 1. Основні дані
             const isGuest = data.isGuest === "true";
             const selectedUser = data.selectedUser || {};
             const deliveryData = data.deliveryData || {};
             const products = data.products || [];
             const deliveryType = data.deliveryType;
             const comment = deliveryData.comment || "";
+            const warehouseId = data.warehouseId; // <- ОБОВʼЯЗКОВО
 
             // 2. Формуємо дані клієнта
             const customerName = isGuest
@@ -41,7 +41,7 @@ const OrderCreateModal = () => {
                 ? deliveryData.guestEmail || ""
                 : selectedUser.email || "";
 
-            // 3. Доставка
+            // 3. Форматування адреси доставки
             let formattedDeliveryData = {};
             if (deliveryType === "nova" || deliveryType === "nova_poshta") {
                 formattedDeliveryData = {
@@ -64,27 +64,26 @@ const OrderCreateModal = () => {
                 if (!formattedDeliveryData[key]) delete formattedDeliveryData[key];
             });
 
-            // 4. Товари
-            const items = (products || []).map((p) => {
-                return {
-                    productId: p.productId || p.id,
-                    quantity: Number(p.quantity) || 1,
-                    price: Number(p.price) || 0,
-                    productName: p.productName,
-                    productCategoryId: p.productCategoryId,
-                    productCategoryName: p.productCategoryName,
-                    isActive: typeof p.isActive === "boolean" ? p.isActive : true,
-                };
-            });
+            // 4. Товари: warehouseId у кожному item
+            const items = (products || []).map((p) => ({
+                productId: p.productId || p.id,
+                quantity: Number(p.quantity) || 1,
+                price: Number(p.price) || 0,
+                productName: p.productName,
+                productCategoryId: p.productCategoryId,
+                productCategoryName: p.productCategoryName,
+                isActive: typeof p.isActive === "boolean" ? p.isActive : true,
+                warehouseId, // <- warehouseId для кожного товару!
+            }));
 
             // 5. Сума
             const totalPrice = deliveryData.totalPrice
                 || products.reduce((acc, p) => acc + ((+p.price || 0) * (+p.quantity || 1)), 0);
 
-            // 6. userId тільки якщо НЕ гість
+            // 6. userId якщо НЕ гість
             const userId = isGuest ? undefined : (selectedUser.id || undefined);
 
-            // 7. Формування payload лише з потрібних полів
+            // 7. payload тільки потрібні поля
             const payload = {
                 ...(userId ? { userId } : {}),
                 ...(customerName ? { customerName } : {}),
@@ -92,12 +91,14 @@ const OrderCreateModal = () => {
                 ...(customerEmail ? { customerEmail } : {}),
                 ...(deliveryType ? { deliveryType } : {}),
                 ...(Object.keys(formattedDeliveryData).length ? { deliveryData: formattedDeliveryData } : {}),
+                ...(warehouseId ? { warehouseId } : {}),
+                ...(data.paymentType ? { paymentType: data.paymentType } : {}),
                 ...(comment ? { comment } : {}),
                 ...(totalPrice ? { totalPrice } : {}),
                 items
             };
 
-            // 8. Глибоке очищення payload (без undefined, null, пустих строк)
+            // 8. Deep clean (без пустих, null, undefined)
             function deepClean(obj) {
                 if (Array.isArray(obj)) {
                     return obj.map(deepClean);
@@ -118,6 +119,7 @@ const OrderCreateModal = () => {
             }
             const cleanPayload = deepClean(payload);
 
+            // 9. Сабміт
             await orderService.createOrder(cleanPayload);
             dispatch(orderActions.changeTrigger());
 
@@ -128,7 +130,6 @@ const OrderCreateModal = () => {
             toast.error('Помилка створення замовлення');
         }
     };
-
 
     return (
         <div className={css.overlay}>
@@ -147,7 +148,6 @@ const OrderCreateModal = () => {
                         <div className={css.infoBlock}>
                             {stepsItemsRender(activeStep)}
                         </div>
-
                         <div className={css.buttonsBlock}>
                             <ButtonCancel onClick={handleCloseCreateOrder} />
                             {activeStep > 0 && (
