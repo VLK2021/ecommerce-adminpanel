@@ -1,343 +1,194 @@
-// import React, {useEffect} from 'react';
-// import {FormProvider, useForm} from "react-hook-form";
-// import {useDispatch, useSelector} from "react-redux";
-// import {toast} from "react-toastify";
-//
-// import css from './OrderUpdateModal.module.css';
-// import {ButtonAll, ButtonCancel, ButtonClose, ButtonOk} from "../../../../../ui/index.js";
-// import {StepsInModal} from "../../StepsInModal/StepsInModal.jsx";
-// import {orderActions} from "../../../../../store/index.js";
-// import {STEPS, stepsItemsRender} from "../../../../../helpers/index.js";
-// import {orderService} from "../../../../../services/orderServices/index.js";
-//
-//
-// const OrderUpdateModal = () => {
-//     const dispatch = useDispatch();
-//     const methods = useForm();
-//
-//     const { activeStep, selectedOrderId } = useSelector(store => store.order);
-//
-//     const handleCloseCreateOrder = () => {
-//         dispatch(orderActions.closeUpdateOrderModal());
-//     };
-//
-//     useEffect(() => {
-//         if (!selectedOrderId) return;
-//
-//         const fetchOrder = async () => {
-//             try {
-//                 const response = await orderService.getOrderById(selectedOrderId);
-//                 console.log(response);
-//
-//
-//             } catch (e) {
-//                 toast.error('Не вдалося отримати дані ордера');
-//             }
-//         }
-//         fetchOrder();
-//     }, [methods, selectedOrderId])
-//
-//
-//     const onSubmit = async (data) => {
-//         console.log(data);
-//         try {
-//
-//
-//             dispatch(orderActions.changeTrigger());
-//
-//             toast.success('Товар успішно оновлений!');
-//             dispatch(orderActions.closeUpdateOrderModal());
-//         }catch (e) {
-//             console.error("🔥 Помилка при оновленні ордера:", e);
-//             toast.error('Помилка оновленні замовлення');
-//         }
-//     }
-//
-//
-//     return (
-//         <div className={css.overlay}>
-//             <div className={css.modal}>
-//                 <div className={css.header}>
-//                     <div className={css.title}>Оновлення ордера</div>
-//                     <ButtonClose onClick={handleCloseCreateOrder} />
-//                 </div>
-//
-//                 <div className={css.stepsBlock}>
-//                     <StepsInModal />
-//                 </div>
-//
-//                 <FormProvider {...methods}>
-//                     <form onSubmit={methods.handleSubmit(onSubmit)} className={css.form}>
-//                         <div className={css.infoBlock}>
-//                             {stepsItemsRender(activeStep)}
-//                         </div>
-//
-//                         <div className={css.buttonsBlock}>
-//                             <ButtonCancel onClick={handleCloseCreateOrder} />
-//                             {activeStep > 0 && (
-//                                 <ButtonAll
-//                                     titleButton={'Назад'}
-//                                     onClick={() => dispatch(orderActions.changeActiveStep(activeStep - 1))}
-//                                 />
-//                             )}
-//                             {activeStep < STEPS.length - 1 ? (
-//                                 <ButtonAll
-//                                     titleButton={'Далі'}
-//                                     onClick={() => dispatch(orderActions.changeActiveStep(activeStep + 1))}
-//                                 />
-//                             ) : (
-//                                 <ButtonOk />
-//                             )}
-//                         </div>
-//                     </form>
-//                 </FormProvider>
-//
-//             </div>
-//         </div>
-//     );
-// };
-//
-// export {OrderUpdateModal};
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-import React, { useEffect } from 'react';
-import { FormProvider, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import React, {useEffect} from 'react';
+import {FormProvider, useForm} from "react-hook-form";
+import {useDispatch, useSelector} from "react-redux";
+import {toast} from "react-toastify";
 
 import css from './OrderUpdateModal.module.css';
-import { ButtonAll, ButtonCancel, ButtonClose, ButtonOk } from "../../../../../ui/index.js";
-import { StepsInModal } from "../../StepsInModal/StepsInModal.jsx";
-import { orderActions } from "../../../../../store/index.js";
-import { STEPS, stepsItemsRender } from "../../../../../helpers/index.js";
-import { orderService } from "../../../../../services/orderServices/index.js";
+import {ButtonAll, ButtonCancel, ButtonClose, ButtonOk} from "../../../../../ui/index.js";
+import {StepsInModal} from "../../StepsInModal/StepsInModal.jsx";
+import {orderActions} from "../../../../../store/index.js";
+import {STEPS, stepsItemsRender} from "../../../../../helpers/index.js";
+import {orderService} from "../../../../../services/orderServices/index.js";
+
+const parseDeliveryFields = (type, data = {}) => {
+    switch (type) {
+        case "nova":
+        case "nova_poshta":
+        case "ukr":
+        case "meest":
+            return {
+                city: data.city || "",
+                warehouse: data.warehouse || "",
+                comment: data.comment || ""
+            };
+        case "courier":
+            return {
+                city: data.city || "",
+                region: data.region || "",
+                street: data.street || "",
+                house: data.house || "",
+                apartment: data.apartment || "",
+                entrance: data.entrance || "",
+                floor: data.floor || "",
+                comment: data.comment || ""
+            };
+        case "pickup":
+            return {comment: data.comment || ""};
+        default:
+            return {};
+    }
+};
+
+const parseGuestFields = (order) => {
+    let guestName = "";
+    let guestLastName = "";
+    if (order.customerName) {
+        const [first, ...rest] = order.customerName.split(" ");
+        guestName = first || "";
+        guestLastName = rest.join(" ") || "";
+    }
+    return {
+        guestName,
+        guestLastName,
+        guestPhone: order.customerPhone || "",
+        guestEmail: order.customerEmail || ""
+    }
+};
+
+const getSelectedUser = (order) =>
+    order.user
+        ? {
+            id: order.user.id || "",
+            name: order.user.name || "",
+            lastName: order.user.lastName || "",
+            phone: order.user.phone || "",
+            email: order.user.email || ""
+        }
+        : null;
+
+const isOrderGuest = (order) => !order.userId || !order.user;
 
 const OrderUpdateModal = () => {
     const dispatch = useDispatch();
     const methods = useForm();
-    const { activeStep, selectedOrderId } = useSelector(store => store.order);
+    const {activeStep, selectedOrderId} = useSelector(store => store.order);
 
     const handleCloseUpdateOrder = () => {
         dispatch(orderActions.closeUpdateOrderModal());
     };
 
-    // 1. Підтягуємо order по selectedOrderId та заповнюємо форму
+    // Слідкуй що всі поля ПІДКЛЮЧЕНІ через RHF у step-компонентах!
     useEffect(() => {
         if (!selectedOrderId) return;
-
         const fetchOrder = async () => {
             try {
                 const order = await orderService.getOrderById(selectedOrderId);
+                const guest = isOrderGuest(order);
 
-                console.log(order);
+                let deliveryData = parseDeliveryFields(order.deliveryType, order.deliveryData);
+                if (guest) deliveryData = {...deliveryData, ...parseGuestFields(order)};
 
-                // Підтягуємо всі потрібні поля:
-                const defaultValues = {
-                    userId: order.userId,
-                    warehouseId: order.warehouseId,
-                    selectedUser: order.user || null,
-                    isGuest: order.userId ? "false" : "true",
-                    customerName: order.customerName,
-                    customerPhone: order.customerPhone,
-                    customerEmail: order.customerEmail,
-                    deliveryType: order.deliveryType,
-                    paymentType: order.paymentType || order.payment?.type || "", // врахуй що може бути і так, і так
-                    // Деталізуємо deliveryData під всі типи:
-                    deliveryData: (() => {
-                        if (!order.deliveryData || typeof order.deliveryData !== "object") return {};
-                        const d = order.deliveryData;
-                        switch (order.deliveryType) {
-                            case "nova":
-                            case "nova_poshta":
-                                return {
-                                    city: d.city || "",
-                                    warehouse: d.warehouse || "",
-                                    comment: d.comment || ""
-                                };
-                            case "courier":
-                                return {
-                                    city: d.city || "",
-                                    region: d.region || "",
-                                    street: d.street || "",
-                                    house: d.house || "",
-                                    apartment: d.apartment || "",
-                                    entrance: d.entrance || "",
-                                    floor: d.floor || "",
-                                    comment: d.comment || ""
-                                };
-                            case "ukr":
-                            case "meest":
-                                return {
-                                    city: d.city || "",
-                                    warehouse: d.warehouse || "",
-                                    comment: d.comment || ""
-                                };
-                            case "pickup":
-                                return {
-                                    comment: d.comment || ""
-                                };
-                            default:
-                                return d;
-                        }
-                    })(),
-                    comment: order.comment,
-                    totalPrice: order.totalPrice,
-                    products: (order.items || []).map(item => ({
-                        productId: item.productId,
-                        id: item.productId, // для компоненту
-                        quantity: item.quantity,
-                        price: Number(item.price),
-                        productName: item.productName,
-                        productCategoryId: item.productCategoryId,
-                        productCategoryName: item.productCategoryName,
-                        isActive: typeof item.isActive === "boolean" ? item.isActive : true,
-                        warehouseId: item.warehouseId,
-                    }))
-                };
+                let selectedUser = null;
+                if (!guest && order.user) selectedUser = getSelectedUser(order);
 
-                // Якщо гість — підтягуємо guest поля в deliveryData
-                if (!order.userId) {
-                    if (order.deliveryData) {
-                        defaultValues.deliveryData.guestName = order.deliveryData.guestName || "";
-                        defaultValues.deliveryData.guestLastName = order.deliveryData.guestLastName || "";
-                        defaultValues.deliveryData.guestPhone = order.deliveryData.guestPhone || "";
-                        defaultValues.deliveryData.guestEmail = order.deliveryData.guestEmail || "";
-                    }
-                }
+                const products = (order.items || []).map(item => ({
+                    productId: item.productId || item.product?.id,
+                    id: item.productId || item.product?.id,
+                    quantity: item.quantity,
+                    price: Number(item.price),
+                    name: item.productName || item.name || (item.product && item.product.name) || "",
+                    productName: item.productName || item.name || (item.product && item.product.name) || "",
+                    productCategoryId: item.productCategoryId || item.product?.categoryId,
+                    productCategoryName: item.productCategoryName || item.product?.categoryName,
+                    isActive: typeof item.isActive === "boolean" ? item.isActive : true,
+                    warehouseId: item.warehouseId || item.warehouse?.id,
+                }));
 
-                methods.reset(defaultValues);
-
+                // Ось тут — РЕАЛЬНО всі дані підключаєш у RHF!
+                methods.reset({
+                    isGuest: guest ? "true" : "false",
+                    selectedUser: !guest ? selectedUser : null,
+                    userId: order.userId || "",
+                    warehouseId: order.warehouseId || order.warehouse?.id || "",
+                    deliveryType: order.deliveryType || "",
+                    paymentType: order.paymentType || "",
+                    deliveryData,
+                    comment: order.comment || "",
+                    totalPrice: order.totalPrice || "",
+                    products,
+                }, {keepDirty: false, keepValues: false});
             } catch (e) {
-                console.error("🔥 Помилка:", e);
                 toast.error('Не вдалося отримати дані ордера');
             }
         };
         fetchOrder();
-        // eslint-disable-next-line
     }, [methods, selectedOrderId]);
 
-    // Сабміт
     const onSubmit = async (data) => {
         try {
             const isGuest = data.isGuest === "true";
-            const selectedUser = data.selectedUser || {};
-            const deliveryData = data.deliveryData || {};
-            const products = data.products || [];
             const deliveryType = data.deliveryType;
-            const paymentType = data.paymentType;
-            const comment = deliveryData.comment || "";
-            const warehouseId = data.warehouseId;
+            let formattedDeliveryData = parseDeliveryFields(deliveryType, data.deliveryData);
 
-            // Клієнт
+            if (isGuest) {
+                formattedDeliveryData = {
+                    ...formattedDeliveryData,
+                    guestName: data.deliveryData.guestName || "",
+                    guestLastName: data.deliveryData.guestLastName || "",
+                    guestPhone: data.deliveryData.guestPhone || "",
+                    guestEmail: data.deliveryData.guestEmail || ""
+                }
+            }
+
+            // ЗБИРАЄМО ВСІ ДАНІ ЯК І У КРІЕЙТІ:
+            const selectedUser = data.selectedUser || {};
+            const products = data.products || [];
+            const comment = data.comment || "";
+
             const customerName = isGuest
-                ? `${deliveryData.guestName || ""} ${deliveryData.guestLastName || ""}`.trim()
+                ? `${data.deliveryData.guestName || ""} ${data.deliveryData.guestLastName || ""}`.trim()
                 : `${selectedUser.name || ""} ${selectedUser.lastName || ""}`.trim();
             const customerPhone = isGuest
-                ? deliveryData.guestPhone || ""
+                ? data.deliveryData.guestPhone || ""
                 : selectedUser.phone || "";
             const customerEmail = isGuest
-                ? deliveryData.guestEmail || ""
+                ? data.deliveryData.guestEmail || ""
                 : selectedUser.email || "";
 
-            // DeliveryData для різних типів
-            let formattedDeliveryData = {};
-            if (deliveryType === "nova" || deliveryType === "nova_poshta") {
-                formattedDeliveryData = {
-                    city: deliveryData.city?.label || deliveryData.city?.Description || deliveryData.city || "",
-                    warehouse: deliveryData.warehouse?.label || deliveryData.warehouse?.Description || deliveryData.warehouse || "",
-                    comment: deliveryData.comment || ""
-                };
-            } else if (deliveryType === "courier") {
-                formattedDeliveryData = {
-                    city: deliveryData.city?.label || deliveryData.city || "",
-                    region: deliveryData.region || "",
-                    street: deliveryData.street || "",
-                    house: deliveryData.house || "",
-                    apartment: deliveryData.apartment || "",
-                    entrance: deliveryData.entrance || "",
-                    floor: deliveryData.floor || "",
-                    comment: deliveryData.comment || ""
-                };
-            } else if (deliveryType === "ukr" || deliveryType === "meest") {
-                formattedDeliveryData = {
-                    city: deliveryData.city?.label || deliveryData.city || "",
-                    warehouse: deliveryData.warehouse?.label || deliveryData.warehouse || "",
-                    comment: deliveryData.comment || ""
-                };
-            } else if (deliveryType === "pickup") {
-                formattedDeliveryData = {
-                    comment: deliveryData.comment || ""
-                };
-            }
-            // Якщо гість — додати guest-поля
-            if (isGuest) {
-                formattedDeliveryData.guestName = deliveryData.guestName || "";
-                formattedDeliveryData.guestLastName = deliveryData.guestLastName || "";
-                formattedDeliveryData.guestPhone = deliveryData.guestPhone || "";
-                formattedDeliveryData.guestEmail = deliveryData.guestEmail || "";
-            }
-            // Прибираємо пусті ключі
-            Object.keys(formattedDeliveryData).forEach(key => {
-                if (
-                    formattedDeliveryData[key] === "" ||
-                    formattedDeliveryData[key] === undefined ||
-                    formattedDeliveryData[key] === null
-                ) {
-                    delete formattedDeliveryData[key];
-                }
-            });
-
-            // Товари
             const items = (products || []).map((p) => ({
                 productId: p.productId || p.id,
                 quantity: Number(p.quantity) || 1,
                 price: Number(p.price) || 0,
-                productName: p.productName,
+                productName: p.productName || p.name || "",
                 productCategoryId: p.productCategoryId,
                 productCategoryName: p.productCategoryName,
                 isActive: typeof p.isActive === "boolean" ? p.isActive : true,
-                warehouseId, // обовʼязково!
+                warehouseId: p.warehouseId,
             }));
 
-            const totalPrice = deliveryData.totalPrice
-                || products.reduce((acc, p) => acc + ((+p.price || 0) * (+p.quantity || 1)), 0);
+            const totalPrice = products.reduce(
+                (acc, p) => acc + ((+p.price || 0) * (+p.quantity || 1)),
+                0
+            );
+
 
             const userId = isGuest ? undefined : (selectedUser.id || undefined);
 
-            // payload
+            // ТЕПЕР PAYLOAD ЯК ДЛЯ СТВОРЕННЯ
             const payload = {
-                ...(userId ? { userId } : {}),
-                ...(customerName ? { customerName } : {}),
-                ...(customerPhone ? { customerPhone } : {}),
-                ...(customerEmail ? { customerEmail } : {}),
-                ...(deliveryType ? { deliveryType } : {}),
-                ...(Object.keys(formattedDeliveryData).length ? { deliveryData: formattedDeliveryData } : {}),
-                ...(warehouseId ? { warehouseId } : {}),
-                ...(paymentType ? { paymentType } : {}),
-                ...(comment ? { comment } : {}),
-                ...(totalPrice ? { totalPrice } : {}),
-                items
+                ...(userId ? {userId} : {}),
+                ...(customerName ? {customerName} : {}),
+                ...(customerPhone ? {customerPhone} : {}),
+                ...(customerEmail ? {customerEmail} : {}),
+                ...(deliveryType ? {deliveryType} : {}),
+                ...(Object.keys(formattedDeliveryData).length ? {deliveryData: formattedDeliveryData} : {}),
+                ...(data.warehouseId ? {warehouseId: data.warehouseId} : {}),
+                ...(data.paymentType ? {paymentType: data.paymentType} : {}),
+                ...(comment ? {comment} : {}),
+                ...(totalPrice ? {totalPrice} : {}),
+                ...(items.length ? {items} : {})
             };
+
 
             function deepClean(obj) {
                 if (Array.isArray(obj)) {
@@ -357,14 +208,20 @@ const OrderUpdateModal = () => {
                 }
                 return obj;
             }
+
             const cleanPayload = deepClean(payload);
+
+            console.log('Отправляемый totalPrice:', totalPrice);
+            console.log('Список товаров:', items);
+            console.log('Payload:', cleanPayload);
+
 
             await orderService.updateOrderById(selectedOrderId, cleanPayload);
             dispatch(orderActions.changeTrigger());
             toast.success('Товар успішно оновлений!');
-            dispatch(orderActions.closeUpdateOrderModal());
+            handleCloseUpdateOrder();
         } catch (e) {
-            console.error("🔥 Помилка при оновленні ордера:", e);
+            console.error(e);
             toast.error('Помилка оновлення замовлення');
         }
     };
@@ -374,10 +231,10 @@ const OrderUpdateModal = () => {
             <div className={css.modal}>
                 <div className={css.header}>
                     <div className={css.title}>Оновлення ордера</div>
-                    <ButtonClose onClick={handleCloseUpdateOrder} />
+                    <ButtonClose onClick={handleCloseUpdateOrder}/>
                 </div>
                 <div className={css.stepsBlock}>
-                    <StepsInModal />
+                    <StepsInModal/>
                 </div>
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)} className={css.form}>
@@ -385,7 +242,7 @@ const OrderUpdateModal = () => {
                             {stepsItemsRender(activeStep)}
                         </div>
                         <div className={css.buttonsBlock}>
-                            <ButtonCancel onClick={handleCloseUpdateOrder} />
+                            <ButtonCancel onClick={handleCloseUpdateOrder}/>
                             {activeStep > 0 && (
                                 <ButtonAll
                                     titleButton={'Назад'}
@@ -398,7 +255,7 @@ const OrderUpdateModal = () => {
                                     onClick={() => dispatch(orderActions.changeActiveStep(activeStep + 1))}
                                 />
                             ) : (
-                                <ButtonOk />
+                                <ButtonOk/>
                             )}
                         </div>
                     </form>
@@ -408,4 +265,4 @@ const OrderUpdateModal = () => {
     );
 };
 
-export { OrderUpdateModal };
+export {OrderUpdateModal};
