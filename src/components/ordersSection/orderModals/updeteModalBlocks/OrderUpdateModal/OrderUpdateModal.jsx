@@ -10,6 +10,7 @@ import {orderActions} from "../../../../../store/index.js";
 import {STEPS, stepsItemsRender} from "../../../../../helpers/index.js";
 import {orderService} from "../../../../../services/orderServices/index.js";
 
+
 const parseDeliveryFields = (type, data = {}) => {
     switch (type) {
         case "nova":
@@ -118,6 +119,7 @@ const OrderUpdateModal = () => {
                     products,
                 }, {keepDirty: false, keepValues: false});
             } catch (e) {
+                console.error("🔥 Помилка при оновленні ордера:", e);
                 toast.error('Не вдалося отримати дані ордера');
             }
         };
