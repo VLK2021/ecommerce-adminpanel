@@ -86,6 +86,8 @@ const OrderUpdateModal = () => {
                 const order = await orderService.getOrderById(selectedOrderId);
                 const guest = isOrderGuest(order);
 
+                console.log(order);
+
                 let deliveryData = parseDeliveryFields(order.deliveryType, order.deliveryData);
                 if (guest) deliveryData = {...deliveryData, ...parseGuestFields(order)};
 

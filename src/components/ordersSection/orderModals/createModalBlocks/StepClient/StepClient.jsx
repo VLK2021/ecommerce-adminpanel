@@ -20,9 +20,9 @@ const StepClient = () => {
                 <label className={css.radioLabel}>
                     <input
                         type="radio"
-                        {...register('isGuest')}
                         value={'false'}
-                        defaultChecked
+                        {...register('isGuest')}
+                        checked={isGuest === 'false'}
                         className={css.radioInput}
                     />
                     <span className={css.customRadio}/>
@@ -31,13 +31,15 @@ const StepClient = () => {
                 <label className={css.radioLabel}>
                     <input
                         type="radio"
-                        {...register('isGuest')}
                         value={'true'}
+                        {...register('isGuest')}
+                        checked={isGuest === 'true'}
                         className={css.radioInput}
                     />
                     <span className={css.customRadio}/>
                     Гість
                 </label>
+
             </div>
             <div className={css.userInfo}>
                 {isGuest === 'true' ? <GuestUserForm/> : <RegisteredUser/>}
