@@ -213,11 +213,6 @@ const OrderUpdateModal = () => {
 
             const cleanPayload = deepClean(payload);
 
-            console.log('Отправляемый totalPrice:', totalPrice);
-            console.log('Список товаров:', items);
-            console.log('Payload:', cleanPayload);
-
-
             await orderService.updateOrderById(selectedOrderId, cleanPayload);
             dispatch(orderActions.changeTrigger());
             toast.success('Товар успішно оновлений!');
