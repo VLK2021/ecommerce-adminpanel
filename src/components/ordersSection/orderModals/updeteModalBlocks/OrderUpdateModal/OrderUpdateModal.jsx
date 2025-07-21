@@ -9,19 +9,19 @@ import {StepsInModal} from "../../StepsInModal/StepsInModal.jsx";
 import {orderActions} from "../../../../../store/index.js";
 import {STEPS, stepsItemsRender} from "../../../../../helpers/index.js";
 import {orderService} from "../../../../../services/orderServices/index.js";
+import {novaPoshtaService} from "../../../../../services/deliveryServices/index.js";
 
 
 const parseDeliveryFields = (type, data = {}) => {
     switch (type) {
         case "nova":
-        case "nova_poshta":
-        case "ukr":
-        case "meest":
             return {
                 city: data.city || "",
                 warehouse: data.warehouse || "",
                 comment: data.comment || ""
             };
+        case "ukr":
+        case "meest":
         case "courier":
             return {
                 city: data.city || "",
@@ -53,7 +53,7 @@ const parseGuestFields = (order) => {
         guestLastName,
         guestPhone: order.customerPhone || "",
         guestEmail: order.customerEmail || ""
-    }
+    };
 };
 
 const getSelectedUser = (order) =>
@@ -69,6 +69,8 @@ const getSelectedUser = (order) =>
 
 const isOrderGuest = (order) => !order.userId || !order.user;
 
+// ==================== КОМПОНЕНТ ====================
+
 const OrderUpdateModal = () => {
     const dispatch = useDispatch();
     const methods = useForm();
@@ -78,21 +80,44 @@ const OrderUpdateModal = () => {
         dispatch(orderActions.closeUpdateOrderModal());
     };
 
-    // Слідкуй що всі поля ПІДКЛЮЧЕНІ через RHF у step-компонентах!
     useEffect(() => {
         if (!selectedOrderId) return;
+
         const fetchOrder = async () => {
             try {
                 const order = await orderService.getOrderById(selectedOrderId);
                 const guest = isOrderGuest(order);
 
-                console.log(order);
-
                 let deliveryData = parseDeliveryFields(order.deliveryType, order.deliveryData);
-                if (guest) deliveryData = {...deliveryData, ...parseGuestFields(order)};
 
-                let selectedUser = null;
-                if (!guest && order.user) selectedUser = getSelectedUser(order);
+                if (order.deliveryType === 'nova') {
+                    const citiesResponse = await novaPoshtaService.getCities('');
+                    const cityValue = String(order.deliveryData?.city).trim();
+
+                    let matchedCity = citiesResponse.find(city => {
+                        // Перевіряємо чи cityValue схожий на Ref (UUID), чи ні:
+                        const isRef = cityValue.length > 10 && cityValue.includes('-');
+                        if (isRef) {
+                            return String(city.Ref).trim() === cityValue;
+                        } else {
+                            return String(city.Description).trim().toLowerCase() === cityValue.toLowerCase();
+                        }
+                    });
+
+                    deliveryData.city = matchedCity
+                        ? {value: matchedCity.Ref, label: matchedCity.Description}
+                        : {value: cityValue, label: cityValue};
+
+                    deliveryData.warehouse = order.deliveryData?.warehouse
+                        ? {value: order.deliveryData.warehouse, label: order.deliveryData.warehouse}
+                        : null;
+                }
+
+                if (guest) {
+                    deliveryData = {...deliveryData, ...parseGuestFields(order)};
+                }
+
+                const selectedUser = (!guest && order.user) ? getSelectedUser(order) : null;
 
                 const products = (order.items || []).map(item => ({
                     productId: item.productId || item.product?.id,
@@ -107,10 +132,9 @@ const OrderUpdateModal = () => {
                     warehouseId: item.warehouseId || item.warehouse?.id,
                 }));
 
-                // Ось тут — РЕАЛЬНО всі дані підключаєш у RHF!
                 methods.reset({
                     isGuest: guest ? "true" : "false",
-                    selectedUser: !guest ? selectedUser : null,
+                    selectedUser,
                     userId: order.userId || "",
                     warehouseId: order.warehouseId || order.warehouse?.id || "",
                     deliveryType: order.deliveryType || "",
@@ -120,11 +144,13 @@ const OrderUpdateModal = () => {
                     totalPrice: order.totalPrice || "",
                     products,
                 }, {keepDirty: false, keepValues: false});
+
             } catch (e) {
                 console.error("🔥 Помилка при оновленні ордера:", e);
-                toast.error('Не вдалося отримати дані ордера');
+                toast.error('Не вдалося оновленні дані ордера');
             }
         };
+
         fetchOrder();
     }, [methods, selectedOrderId]);
 
@@ -134,6 +160,11 @@ const OrderUpdateModal = () => {
             const deliveryType = data.deliveryType;
             let formattedDeliveryData = parseDeliveryFields(deliveryType, data.deliveryData);
 
+            if (deliveryType === 'nova') {
+                formattedDeliveryData.city = data.deliveryData.city?.value || "";
+                formattedDeliveryData.warehouse = data.deliveryData.warehouse?.value || "";
+            }
+
             if (isGuest) {
                 formattedDeliveryData = {
                     ...formattedDeliveryData,
@@ -141,10 +172,9 @@ const OrderUpdateModal = () => {
                     guestLastName: data.deliveryData.guestLastName || "",
                     guestPhone: data.deliveryData.guestPhone || "",
                     guestEmail: data.deliveryData.guestEmail || ""
-                }
+                };
             }
 
-            // ЗБИРАЄМО ВСІ ДАНІ ЯК І У КРІЕЙТІ:
             const selectedUser = data.selectedUser || {};
             const products = data.products || [];
             const comment = data.comment || "";
@@ -175,10 +205,8 @@ const OrderUpdateModal = () => {
                 0
             );
 
-
             const userId = isGuest ? undefined : (selectedUser.id || undefined);
 
-            // ТЕПЕР PAYLOAD ЯК ДЛЯ СТВОРЕННЯ
             const payload = {
                 ...(userId ? {userId} : {}),
                 ...(customerName ? {customerName} : {}),
@@ -193,34 +221,14 @@ const OrderUpdateModal = () => {
                 ...(items.length ? {items} : {})
             };
 
+            await orderService.updateOrderById(selectedOrderId, payload);
 
-            function deepClean(obj) {
-                if (Array.isArray(obj)) {
-                    return obj.map(deepClean);
-                } else if (typeof obj === "object" && obj !== null) {
-                    const result = {};
-                    Object.entries(obj).forEach(([key, value]) => {
-                        if (
-                            value !== undefined &&
-                            value !== null &&
-                            !(typeof value === "string" && value.trim() === "")
-                        ) {
-                            result[key] = deepClean(value);
-                        }
-                    });
-                    return result;
-                }
-                return obj;
-            }
-
-            const cleanPayload = deepClean(payload);
-
-            await orderService.updateOrderById(selectedOrderId, cleanPayload);
             dispatch(orderActions.changeTrigger());
-            toast.success('Товар успішно оновлений!');
+            toast.success('Замовлення оновлено!');
             handleCloseUpdateOrder();
+
         } catch (e) {
-            console.error(e);
+            console.error("🔥 Помилка при оновленні ордера:", e);
             toast.error('Помилка оновлення замовлення');
         }
     };

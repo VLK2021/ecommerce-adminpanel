@@ -13,7 +13,7 @@ const novaPoshtaService = {
             calledMethod: 'getCities',
             methodProperties: {
                 FindByString: search,
-                Limit: 1000
+                Limit: 100000
             }
         }).then(res => res.data.data),
 
@@ -24,7 +24,7 @@ const novaPoshtaService = {
             calledMethod: 'getWarehouses',
             methodProperties: {
                 CityRef: cityRef,
-                Limit: 1000
+                Limit: 100000
             }
         }).then(res => res.data.data),
 };
