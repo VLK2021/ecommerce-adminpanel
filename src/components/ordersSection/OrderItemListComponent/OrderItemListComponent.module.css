@@ -26,17 +26,84 @@
     box-sizing: border-box;
 }
 
-.orderNumber { width: 5%; }
-.orderName { width: 20%; }
-.orderPrice { width: 10%; }
-.paymentStatus { width: 15%; }
-.orderStatus { width: 10%; }
-.date { width: 10%; }
-.delivery { width: 15%; }
+.orderNumber {
+    width: 5%;
+}
+
+.orderName {
+    width: 20%;
+}
+
+.orderPrice {
+    width: 10%;
+}
+
+.paymentStatus {
+    width: 15%;
+}
+
+.orderStatus {
+    width: 10%;
+}
+
+.date {
+    width: 10%;
+}
+
+.delivery {
+    width: 15%;
+}
 
 .action {
     width: 15%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.orderStatus {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.statusText {
+    display: inline-block;
+    width: 100%;
+}
+
+.statusDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 120px;
+    background: white;
+    border: 1px solid var(--bg-color-hr);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 200;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.statusOption {
+    padding: 6px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.statusOption:hover {
+    background-color: var(--aside-hover);
 }
