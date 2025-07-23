@@ -26,9 +26,9 @@ const OrderItemListComponent = ({order}) => {
         id,
         orderNumber,
         customerName,
+        customerPhone,
         deliveryType,
         status,
-        paymentStatus,
         totalPrice,
         createdAt
     } = order;
@@ -79,7 +79,7 @@ const OrderItemListComponent = ({order}) => {
             <div className={css.orderNumber}>{orderNumber}</div>
             <div className={css.orderName}>{customerName}</div>
             <div className={css.orderPrice}>{totalPrice} грн</div>
-            <div className={css.paymentStatus}>{paymentStatus}</div>
+            <div className={css.phone}>{customerPhone}</div>
 
             <div className={css.orderStatus} onClick={toggleStatusSelect}>
                 <span className={css.statusText}>

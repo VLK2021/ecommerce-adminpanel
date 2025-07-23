@@ -24,7 +24,7 @@ const OrdersListComponent = () => {
                 <div className={css.orderNumber}>№</div>
                 <div className={css.orderName}>Клієнт</div>
                 <div className={css.orderPrice}>Сума</div>
-                <div className={css.paymentStatus}>Оплата</div>
+                <div className={css.phone}>Телефон</div>
                 <div className={css.orderStatus}>Статус</div>
                 <div className={css.date}>Дата</div>
                 <div className={css.delivery}>Доставка</div>

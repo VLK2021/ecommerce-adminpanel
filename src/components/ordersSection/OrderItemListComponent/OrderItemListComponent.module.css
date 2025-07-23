@@ -4,8 +4,8 @@
     border: 1px solid var(--bg-color-hr);
     transition: all 0.2s ease;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 700;
     color: var(--text-color);
     display: flex;
     align-items: center;
@@ -20,7 +20,7 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.orderNumber, .orderName, .orderPrice, .paymentStatus, .orderStatus, .date, .delivery {
+.orderNumber, .orderName, .orderPrice, .phone, .orderStatus, .date, .delivery {
     border-right: 1px solid var(--el-color-primary);
     padding: 4px 6px;
     box-sizing: border-box;
@@ -38,7 +38,7 @@
     width: 10%;
 }
 
-.paymentStatus {
+.phone {
     width: 15%;
 }
 

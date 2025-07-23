@@ -28,14 +28,14 @@
     letter-spacing: 0.5px;
 }
 
-.orderNumber, .orderName, .orderPrice, .paymentStatus, .orderStatus, .date, .delivery {
+.orderNumber, .orderName, .orderPrice, .phone, .orderStatus, .date, .delivery {
     border-right: 1px solid var(--el-color-primary);
 }
 
 .orderNumber { width: 5%; }
 .orderName { width: 20%; }
 .orderPrice { width: 10%; }
-.paymentStatus { width: 15%; }
+.phone { width: 15%; }
 .orderStatus { width: 10%; }
 .date { width: 10%; }
 .delivery { width: 15%; }
