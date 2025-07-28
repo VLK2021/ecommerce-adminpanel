@@ -48,6 +48,7 @@ const OrderItemListComponent = ({order}) => {
 
     const showInformation = (e) => {
         e.stopPropagation();
+
         dispatch(orderActions.openDetailsOrderModal());
         dispatch(orderActions.selectOrder(id));
     };

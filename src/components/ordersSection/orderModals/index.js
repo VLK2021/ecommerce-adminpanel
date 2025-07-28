@@ -12,3 +12,4 @@ export * from './createModalBlocks/StepWarehouse/StepWarehouse.jsx';
 export * from './createModalBlocks/DeliveryNova/DeliveryNova.jsx';
 export * from './createModalBlocks/DeliveryCourier/DeliveryCourier.jsx';
 export * from './updeteModalBlocks/OrderUpdateModal/OrderUpdateModal.jsx';
+export * from './OrderInfoSingleModal/OrderInfoSingleModal.jsx';
