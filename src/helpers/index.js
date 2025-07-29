@@ -5,3 +5,5 @@ export * from './stepsItemsRender.jsx';
 export * from './stepsArray.js';
 export * from './stepsDeliveryItemsRender.jsx';
 export * from './replaseDate.jsx';
+export * from './OrderStatus.jsx';
+export * from './PaymentOptions.jsx';

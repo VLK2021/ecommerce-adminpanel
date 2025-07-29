@@ -7,17 +7,7 @@ import {orderActions} from "../../../store/index.js";
 import {ButtonAll, ButtonClose} from "../../../ui/index.js";
 import {toast} from "react-toastify";
 import {orderService} from "../../../services/orderServices/index.js";
-
-
-const OrderStatuses = [
-    {value: 'NEW', label: 'Новий'},
-    {value: 'PROCESSING', label: 'Обробляється'},
-    {value: 'SHIPPED', label: 'Відправлено'},
-    {value: 'RETURNED', label: 'Повернуто'},
-    {value: 'PAID', label: 'Завершено'},
-    {value: 'CANCELLED', label: 'Скасовано'},
-    {value: 'DELIVERED', label: 'Доставлено'}
-];
+import OrderStatuses from "../../../helpers/OrderStatus.jsx";
 
 
 const OrderItemListComponent = ({order}) => {
