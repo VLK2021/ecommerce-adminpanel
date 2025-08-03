@@ -75,7 +75,6 @@ const OrderInfoSingleModal = () => {
                 </div>
 
                 <div className={css.flexContainer}>
-                    {/* LEFT COLUMN */}
                     <div className={css.left}>
                         <div className={css.section}>
                             <div className={css.sectionHeader}>Загальна</div>
@@ -89,7 +88,7 @@ const OrderInfoSingleModal = () => {
 
                         <div className={css.section}>
                             <div className={css.sectionHeader}>Клієнт</div>
-                            <div className={css.pair}><span>Ім’я:</span> <b>{customerName}</b></div>
+                            <div className={css.pair}><span>П.І.Б:</span> <b>{customerName}</b></div>
                             <div className={css.pair}><span>Телефон:</span> <b>{customerPhone}</b></div>
                             <div className={css.pair}><span>Email:</span> <b>{customerEmail}</b></div>
                         </div>
@@ -104,7 +103,7 @@ const OrderInfoSingleModal = () => {
                         </div>
                     </div>
 
-                    {/* RIGHT COLUMN */}
+
                     <div className={css.right}>
                         <div className={css.section}>
                             <div className={css.sectionHeader + ' ' + css.sectionProductsHeader}>
