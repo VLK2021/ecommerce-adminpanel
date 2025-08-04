@@ -1,10 +1,13 @@
-import {OrderSingleInfoDeliveryCourier} from "../components/ordersSection/orderModals/index.js";
+import {
+    OrderSingleDeliveryNova,
+    OrderSingleInfoDeliveryCourier
+} from "../components/ordersSection/orderModals/index.js";
 
 
 const orderInfoDelivery = (method, order) => {
     switch (method) {
         case 'nova':
-            return '';
+            return <OrderSingleDeliveryNova order={order}/>;
         case 'courier':
             return <OrderSingleInfoDeliveryCourier order={order}/>;
         case 'ukr':

@@ -1,0 +1,43 @@
+.wrap {
+    width: 100%;
+    color: var(--text-secondary, #4662af);
+    border-radius: 20px;
+    font-size: 1.1rem;
+}
+
+.headerRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 1.18rem;
+}
+
+.dataRow {
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.label {
+    font-weight: 400;
+    opacity: 0.85;
+    min-width: 70px;
+}
+
+.type {
+    font-weight: 600;
+    font-size: 1.19rem;
+    text-align: end;
+}
+
+.value {
+    font-weight: 500;
+}
+
+.mar {
+    margin-left: 4rem;
+}

@@ -9,7 +9,7 @@ const OrderSingleInfoDeliveryCourier = ({order}) => {
 
     return (
         <div className={css.wrap}>
-            <div className={css.pair}><span>Тип:</span> <b>{order.deliveryType || '—'}</b></div>
+            <div className={css.pair}><span>Тип:</span> <b>Курєр</b></div>
             <div className={css.pair}><span>Область::</span> <b>{order.deliveryData?.region || '—'}</b></div>
             <div className={css.pair}><span>Місто:</span> <b>{order.deliveryData?.city || '—'}</b></div>
             <div className={css.pair}><span>Вулиця:</span> <b>{order.deliveryData?.street || '—'}</b></div>
