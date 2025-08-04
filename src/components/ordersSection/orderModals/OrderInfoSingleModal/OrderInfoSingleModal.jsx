@@ -7,6 +7,7 @@ import {orderActions} from '../../../../store/index.js';
 import {orderService} from '../../../../services/orderServices/index.js';
 import OrderStatuses from "../../../../helpers/OrderStatus.jsx";
 import PaymentOptions from "../../../../helpers/PaymentOptions.jsx";
+import {orderInfoDelivery} from "../../../../helpers/index.js";
 
 
 
@@ -45,7 +46,6 @@ const OrderInfoSingleModal = () => {
         customerPhone,
         customerEmail,
         deliveryType,
-        deliveryData,
         paymentType,
         paymentStatus,
         status,
@@ -95,14 +95,9 @@ const OrderInfoSingleModal = () => {
 
                         <div className={css.section}>
                             <div className={css.sectionHeader}>Доставка</div>
-                            <div className={css.pair}><span>Тип:</span> <b>{deliveryType || '—'}</b></div>
-                            <div className={css.pair}><span>Місто:</span> <b>{deliveryData?.city || '—'}</b></div>
-                            <div className={css.pair}><span>Склад:</span> <b>{deliveryData?.warehouse || '—'}</b></div>
-                            {deliveryData?.comment &&
-                                <div className={css.pair}><span>Комент:</span> <b>{deliveryData.comment}</b></div>}
+                            {orderInfoDelivery(deliveryType, orderData)}
                         </div>
                     </div>
-
 
                     <div className={css.right}>
                         <div className={css.section}>

@@ -13,3 +13,4 @@ export * from './createModalBlocks/DeliveryNova/DeliveryNova.jsx';
 export * from './createModalBlocks/DeliveryCourier/DeliveryCourier.jsx';
 export * from './updeteModalBlocks/OrderUpdateModal/OrderUpdateModal.jsx';
 export * from './OrderInfoSingleModal/OrderInfoSingleModal.jsx';
+export * from './OrderSingleInfoDeliveryCourier/OrderSingleInfoDeliveryCourier.jsx';

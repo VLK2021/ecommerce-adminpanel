@@ -1,0 +1,12 @@
+.wrap {
+    width: 100%;
+    color: var(--text-secondary, #4662af);
+}
+
+.pair {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 0 2px 0;
+    font-size: 1.03rem;
+}
